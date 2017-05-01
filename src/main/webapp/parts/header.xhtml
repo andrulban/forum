@@ -9,24 +9,23 @@ and open the template in the editor.
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
-    <head>
+    <h:head>
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
+    </h:head>
+    <h:body>
         <ui:composition>
-            <div class="wrap">
+            
+            
                 <div class="logo">
-                    <a href="http://localhost:8080/Library/pages/books.xhtml">
+                    <a href="#">
                         <h:graphicImage library="images" name="libraryLogo.png"/>
                     </a>
                 </div>
-            </div>
+           
+
             
-            <h:form id="searchForm">
-            <h:inputText id="searchText" value="#{describedObjectListController.searchString}" styleClass="search-text"/>
-            <p:commandButton id="searchButton" value="Search" action="#{describedObjectListController.search}" styleClass="button" ajax="false"/>
-            </h:form>
+            
         </ui:composition>
-    </body>
+    </h:body>
 </html>
