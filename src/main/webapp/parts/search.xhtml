@@ -21,6 +21,8 @@ and open the template in the editor.
                 <h:form id="searchForm" styleClass="searchForm">
                     <h:inputText id="searchText" value="#{describedObjectListController.searchString}" styleClass="searchText"/>
                     <p:commandButton id="searchButton" value="Search" action="#{describedObjectListController.search}" styleClass="searchButton" ajax="false"/>
+                    <div class="clear"></div>
+                    <p:commandButton id="addButton" value="Add new Obj" action="#" styleClass="addButton" ajax="false"/>
                 </h:form>
             </div>
             

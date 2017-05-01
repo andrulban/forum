@@ -92,6 +92,22 @@ body {
     margin:0;
 }
 
+.search .addButton {
+    margin:10px 47% 0 0; width: 150px; height: 40px; border-radius: 3px; color: #fff; font-size: 16px; cursor: pointer; background: green; border: none; 
+
+}
+.search .ui-addButton{
+    text-shadow: none;
+    text-align: center;
+    box-shadow: none;
+}
+
+.search .ui-addButton-text{
+    text-align: center;
+    padding:0;
+    margin:0;
+}
+
 #footer {
     text-align: center;
     position: relative;
@@ -107,4 +123,46 @@ body {
 .footer-wrap p { padding-top: 15px; text-align: center; }
 
 .footer_blank {	clear: both; height: 48px; }
+
 .clear { clear: both; }
+
+.describedObjList .ui-widget-content{
+    color: black;
+}
+
+.describedObjList .ui-state-active{
+    background: #d5574b;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+}
+
+.describedObjList .ui-paginator-page{
+    padding: 8px 10px 8px 10px;
+}
+
+.content { overflow: hidden;
+          margin-top: 27px; 
+          background: #fff; 
+          border-radius: 5px; 
+          border-left: 1px solid #e5e5e5;
+          width: 760px;
+          margin-bottom: 15px;
+}
+
+.item .foto {
+    float: left; 
+    margin-bottom: 10px;
+    width: 200px; 
+    height: 147px;
+    margin-right: 20px; 
+    margin-left: 19px;
+}
+
+.item .objName p{
+    height: 40px;
+    font-weight: bold;
+    font-size: 150%;
+    color: red;
+    padding-top: 10px;    
+}
