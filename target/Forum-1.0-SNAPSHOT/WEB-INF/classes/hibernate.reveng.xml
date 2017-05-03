@@ -41,6 +41,6 @@ Contributor(s):
 -->
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="Forum"/>
-  <table-filter match-name="describedObj"/>
   <table-filter match-name="description"/>
+  <table-filter match-name="describedObj"/>
 </hibernate-reverse-engineering>

@@ -182,8 +182,10 @@ body {
 }
 
 .description {
-    clear: both;
-    font-size: 110%;
+    font-weight: bold;
+    font-size: 130%;
+    margin: 20px 5px 20px 5px;
+    
     
 }
 

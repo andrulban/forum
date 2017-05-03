@@ -17,18 +17,24 @@ and open the template in the editor.
     <body>
         <ui:composition template="/templates/aForumTemplate.xhtml">            
             <ui:define name="main">
-
-                <p:graphicImage alt="#{describedObjectListController.pageOfDataGrid.selectedDescribedObj.name}" value="/ImageReader?index=#{describedObjectListController.pageOfDataGrid.indexOfSelectedObj}" cache="false" styleClass="fotoOpinion"/>
-                <div class="objName">
-                    <p>#{describedObjectListController.pageOfDataGrid.selectedDescribedObj.name}</p>
-                </div>
-                <div class="raiting">
+                <div class="opinionDecObjPart">
                     
+                    <p:graphicImage alt="#{describedObjectListController.pageOfDataGrid.selectedDescribedObj.name}" value="/ImageReader?index=#{describedObjectListController.pageOfDataGrid.indexOfSelectedObj}" cache="false" styleClass="fotoOpinion"/>
+
+                    <div class="objName">
+                        <p>#{describedObjectListController.pageOfDataGrid.selectedDescribedObj.name}</p>
+                    </div>
+
+                    <div class="description">
+                        <p>#{describedObjectListController.pageOfDataGrid.selectedDescribedObj.contacts}</p>
+                    </div>
+
+                    <div class="raiting">
+
+                    </div>
+
                 </div>
-                <div class="description">
-                    <h:outputText value="#{describedObjectListController.pageOfDataGrid.selectedDescribedObj}"
-                </div>
-                
+
 
 
 
