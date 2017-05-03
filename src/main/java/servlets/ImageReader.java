@@ -43,8 +43,10 @@ public class ImageReader extends HttpServlet {
             byte[] image = objExt.getFoto();
            // int id= Integer.valueOf(request.getParameter("bookId"));
            // byte[] image = bookListController.getImage(id);
+           if (image!=null) {
             response.setContentLength(image.length);
             out.write(image);
+           }
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {

@@ -13,8 +13,10 @@ import java.util.List;
  * @author andrusha
  */
 public class PageOfDataGrid {
+
     private long totalDescribedObjCount;
     private DescribedObjExt selectedDescribedObj;
+    private int indexOfSelectedObj;
     private int rowIndex;
     private int from;
     private int to;
@@ -23,23 +25,28 @@ public class PageOfDataGrid {
     public PageOfDataGrid() {
         //setFrom(0);
         //setTo(10);
-    }    
-   
+    }
+
     public List<DescribedObjExt> getList() {
         return list;
     }
 
     public void setList(List<DescribedObjExt> list) {
-        rowIndex=-1;
+        rowIndex = -1;
         this.list = list;
     }
-    
+
     public int getRowIndex() {
         return ++rowIndex;
     }
 
+    public int getSameRowIndex() {
+        System.out.println(rowIndex);        
+        return rowIndex;
+    }
+
     public void setRowIndex(int rowIndex) {
-        this.rowIndex=rowIndex;
+        this.rowIndex = rowIndex;
     }
 
     public int getFrom() {
@@ -74,5 +81,16 @@ public class PageOfDataGrid {
         this.selectedDescribedObj = selectedDescribedObj;
     }
     
+    public String getName(Object index) {
+        return list.get(Integer.valueOf(String.valueOf(index))).getName();
+    }
+
+    public int getIndexOfSelectedObj() {
+        return indexOfSelectedObj;
+    }
+
+    public void setIndexOfSelectedObj(int indexOfSelectedObj) {
+        this.indexOfSelectedObj = indexOfSelectedObj;
+    }
     
 }

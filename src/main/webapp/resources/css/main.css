@@ -159,10 +159,32 @@ body {
     margin-left: 19px;
 }
 
-.item .objName p{
+.objName p{
     height: 40px;
     font-weight: bold;
-    font-size: 150%;
+    font-size: 170%;
     color: red;
     padding-top: 10px;    
 }
+
+.amount {padding-right: 40px; overflow: hidden; }
+.amount h1 {color: #7f7f7f; font-size: 20px; margin-left: 35%; margin-top: 28px;}
+.amount a {margin-top: 25px; float: right; background: #d5c39d; padding: 10px 15px 10px 15px; border-radius: 5px; margin-left: 6px; font-size: 14px; color: #fff; text-decoration: none;}
+
+
+.fotoOpinion {
+    float: left; 
+    margin-bottom: 15px;
+    width: 400px; 
+    height: 300px;
+    margin-right: 20px; 
+    margin-left: 19px;
+}
+
+.description {
+    clear: both;
+    font-size: 110%;
+    
+}
+
+

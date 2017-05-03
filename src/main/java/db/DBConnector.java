@@ -59,7 +59,7 @@ public class DBConnector {
 
     private void runDCriteria() {
         Criteria criteria = dCriteria.addOrder(Order.asc("this.name")).getExecutableCriteria(getSession());
-        //criteria.setProjection(bookProjection).setResultTransformer(Transformers.aliasToBean(DescribedObjExt.class));
+        //criteria.setProjection(#).setResultTransformer(Transformers.aliasToBean(DescribedObjExt.class));
         List<DescribedObjExt> list = criteria.setFirstResult(pageOfDataGrid.getFrom()).setMaxResults(pageOfDataGrid.getTo()).list();
         pageOfDataGrid.setList(list);
     }

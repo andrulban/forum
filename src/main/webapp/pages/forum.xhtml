@@ -18,27 +18,38 @@ and open the template in the editor.
         <ui:composition template="/templates/aForumTemplate.xhtml">
             <ui:define name="main">
 
-                <p:dataGrid id="describedObjectsDataGrid" columns="1" value="#{describedObjectListController.describedObjListDataModel}" 
-                            var="obj" lazy="true" paginator="true" emptyMessage=""
-                            styleClass="describedObjList" rows="10" paginatorAlwaysVisible="true" 
-                            paginatorTemplate="{RowsPerPageDropdown} {PageLinks}" rowsPerPageTemplate="10,20,30,50" 
-                            binding="#{describedObjectListController.dataGridDescribedObj.dataGrid}">
-                    <div class="item">
+                <h:form id="forumLinkForm">
+                    <p:dataGrid id="describedObjectsDataGrid" columns="1" value="#{describedObjectListController.describedObjListDataModel}" 
+                                var="obj" lazy="true" paginator="true" emptyMessage=""
+                                styleClass="describedObjList" rows="10" paginatorAlwaysVisible="true" 
+                                paginatorTemplate="{RowsPerPageDropdown} {PageLinks}" rowsPerPageTemplate="10,20,30,50" 
+                                binding="#{describedObjectListController.dataGridDescribedObj.dataGrid}">
+                        <div class="item">
 
-                        <h:outputLink id="imageLink" value="#" styleClass="content_link">
-                            <p:graphicImage alt="#{obj.name}" value="/ImageReader?index=#{describedObjectListController.pageOfDataGrid.rowIndex}" cache="false" styleClass="foto"/>                             
-                        </h:outputLink>
-                        <h:outputLink id="nameLink" value="#" style="text-decoration: none;">
-                        <div class="objName">
-                            <p>#{obj.name}</p>
+
+                            <p:commandLink id="imageCommandLink" action="#{describedObjectListController.chooseObj(obj.id)}" styleClass="content_link" ajax="false">
+                                <p:graphicImage alt="#{obj.name}" value="/ImageReader?index=#{describedObjectListController.pageOfDataGrid.rowIndex}" cache="false" styleClass="foto"/>  
+                            </p:commandLink>
+                            <p:commandLink id="nameLink" action="#{describedObjectListController.chooseObj(obj.id)}" style="text-decoration: none;">
+                                <div class="objName">
+                                    <p>#{obj.name}</p>
+                                </div>
+                            </p:commandLink>
+
+
                         </div>
-                        </h:outputLink>
-
-                    </div>
-                </p:dataGrid>
+                    </p:dataGrid>
+                </h:form>
 
 
+            </ui:define>
 
+            <ui:define name="books_count">
+                <div class="amount">
+
+                    <h1><p:outputLabel id="booksCountOutputText" value="Opinions are found: #{describedObjectListController.pageOfDataGrid.totalDescribedObjCount}" /></h1>
+
+                </div>
             </ui:define>
         </ui:composition>
     </body>
