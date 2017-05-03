@@ -80,10 +80,6 @@ public class PageOfDataGrid {
     public void setSelectedDescribedObj(DescribedObjExt selectedDescribedObj) {
         this.selectedDescribedObj = selectedDescribedObj;
     }
-    
-    public String getName(Object index) {
-        return list.get(Integer.valueOf(String.valueOf(index))).getName();
-    }
 
     public int getIndexOfSelectedObj() {
         return indexOfSelectedObj;

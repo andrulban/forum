@@ -1,12 +1,16 @@
 beans/DataGridDescribedObj.class
+beans/DataGridDescription.class
 db_entities/HibernateUtil.class
 servlets/ImageReader.class
 db_entitiesExt/DescriptionExt.class
 db_entities/Description.class
 filters/HibernateSession.class
 controllers/DescribedObjectListController.class
+dataModels/DescriptionListDataModel.class
 filters/HibernateSession$ResponseWrapper.class
+beans/PageOfDataGridDescriptions.class
 beans/User.class
+controllers/DescriptionController.class
 db/DBConnector.class
 db_entities/DescribedObj.class
 beans/PageOfDataGrid.class

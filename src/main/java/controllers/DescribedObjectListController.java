@@ -40,16 +40,17 @@ public class DescribedObjectListController implements Serializable {
     }
 
     public String search() {
-        dBConnector.searchByName(searchString);
+        dBConnector.searchDescObjByName(searchString);
         return "forum";
     }
     
-    public String chooseObj(int id) {
+    public String chooseObj(long id) {
         for (int i =0; i<pageOfDataGrid.getList().size();i++) {
             DescribedObjExt obj = pageOfDataGrid.getList().get(i);
             if (obj.getId()==id) {
                 pageOfDataGrid.setSelectedDescribedObj(obj);
                 pageOfDataGrid.setIndexOfSelectedObj(i);
+                dBConnector.searchDescriptionById(id);
                 System.out.println("Selected idex "+ i);
                 return "opinion";
             }
@@ -102,9 +103,5 @@ public class DescribedObjectListController implements Serializable {
     public void setPageOfDataGrid(PageOfDataGrid pageOfDataGrid) {
         this.pageOfDataGrid = pageOfDataGrid;
     }
-    
-    
-    
-    
 
 }

@@ -34,6 +34,22 @@ and open the template in the editor.
                     </div>
 
                 </div>
+                
+                <h:form id="forumLinkForm">
+                    <p:dataGrid id="descriptionsDataGrid" columns="1" value="#{descriptionController.descriptionListDataModel}" 
+                                var="descr" lazy="true" paginator="true" emptyMessage=""
+                                styleClass="describedObjList" rows="20" paginatorPosition="bottom"
+                                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                binding="#{descriptionController.dataGridDescription.dataGrid}">
+                        <div class="item">
+
+                            <p>desc.id</p>
+                            <p>desc.description</p>
+                            <p>desc.dateOfDescription</p>
+                            
+                        </div>
+                    </p:dataGrid>
+                </h:form>
 
 
 
