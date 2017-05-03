@@ -15,12 +15,14 @@ import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author andrusha
  */
-@ManagedBean(eager = true)
+@ManagedBean
 @SessionScoped
 
 public class DescribedObjectListController implements Serializable {
@@ -29,9 +31,9 @@ public class DescribedObjectListController implements Serializable {
     private DBConnector dBConnector;
     private DescribedObjListDataModel describedObjListDataModel;
     private DataGridDescribedObj dataGridDescribedObj;
-    private PageOfDataGrid pageOfDataGrid;  
+    private PageOfDataGrid pageOfDataGrid;
+    private long selectedIndex;
 
-    
     public DescribedObjectListController() {
         pageOfDataGrid = new PageOfDataGrid();
         dBConnector = new DBConnector(pageOfDataGrid);
@@ -43,26 +45,23 @@ public class DescribedObjectListController implements Serializable {
         dBConnector.searchDescObjByName(searchString);
         return "forum";
     }
-    
+
     public String chooseObj(long id) {
-        for (int i =0; i<pageOfDataGrid.getList().size();i++) {
+        for (int i = 0; i < pageOfDataGrid.getList().size(); i++) {
             DescribedObjExt obj = pageOfDataGrid.getList().get(i);
-            if (obj.getId()==id) {
+            if (obj.getId() == id) {
                 pageOfDataGrid.setSelectedDescribedObj(obj);
                 pageOfDataGrid.setIndexOfSelectedObj(i);
-                dBConnector.searchDescriptionById(id);
-                System.out.println("Selected idex "+ i);
+                if (selectedIndex != 0) {
+                    dBConnector.searchDescriptionById(id);
+                }
+                selectedIndex = id;
+                System.out.println("Selected idex " + i);
                 return "opinion";
             }
         }
         return "fail";
     }
-    
-    
-    
-    
-    
-    
 
     public String getSearchString() {
         return searchString;
@@ -70,7 +69,7 @@ public class DescribedObjectListController implements Serializable {
 
     public void setSearchString(String searchString) {
         this.searchString = searchString;
-    }    
+    }
 
     public DBConnector getdBConnector() {
         return dBConnector;
@@ -102,6 +101,14 @@ public class DescribedObjectListController implements Serializable {
 
     public void setPageOfDataGrid(PageOfDataGrid pageOfDataGrid) {
         this.pageOfDataGrid = pageOfDataGrid;
+    }
+
+    public long getSelectedIndex() {
+        return selectedIndex;
+    }
+
+    public void setSelectedIndex(long selectedIndex) {
+        this.selectedIndex = selectedIndex;
     }
 
 }

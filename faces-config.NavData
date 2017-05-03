@@ -3,12 +3,12 @@
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
         <Node id="parts/search.xhtml" x="796" y="138" zoom="true"/>
-        <Node id="index.xhtml" x="253" y="289" zoom="true"/>
-        <Node id="pages/opinion.xhtml" x="386" y="35" zoom="true"/>
+        <Node id="index.xhtml" x="101" y="281" zoom="true"/>
         <Node id="templates/aForumTemplate.xhtml" x="713" y="291" zoom="true"/>
+        <Node id="pages/opinion.xhtml" x="433" y="31" zoom="true"/>
         <Node id="parts/footer.xhtml" x="769" y="207" zoom="true"/>
         <Node id="parts/header.xhtml" x="733" y="78" zoom="true"/>
-        <Node id="pages/forum.xhtml" x="76" y="82" zoom="true"/>
+        <Node id="pages/forum.xhtml" x="92" y="163" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>

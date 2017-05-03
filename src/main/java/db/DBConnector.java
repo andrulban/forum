@@ -91,7 +91,7 @@ public class DBConnector {
     }
     
     private void runDDescriptionCriteria() {
-        Criteria criteria = dDescriptionCriteria.addOrder(Order.asc("this.dateOfDescription")).getExecutableCriteria(getSession());
+        Criteria criteria = dDescriptionCriteria.addOrder(Order.desc("this.dateOfDescription")).getExecutableCriteria(getSession());
         List<DescriptionExt> list = criteria.setFirstResult(pageOfDataGridDescriptions.getFrom()).setMaxResults(pageOfDataGridDescriptions.getTo()).list();
         pageOfDataGridDescriptions.setList(list);
     }
@@ -119,6 +119,10 @@ public class DBConnector {
         dDescriptionCriteria.add(Restrictions.eq("this.idObject", id));
         dDescriptionCriteriaCount.add(Restrictions.eq("this.idObject", id));
         populatePageOfDataGridDescription();
+    }
+    
+    public void addCommend(DescriptionExt commend) {
+        getSession().save(commend);
     }
 
 }

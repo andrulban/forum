@@ -18,7 +18,7 @@
             <column name="description" length="65535" not-null="true" />
         </property>
         <property name="dateOfDescription" type="timestamp">
-            <column name="date_of_description" length="19" not-null="true" />
+            <column name="dateOfDescription" length="19" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

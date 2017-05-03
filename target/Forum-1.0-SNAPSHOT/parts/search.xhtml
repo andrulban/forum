@@ -20,9 +20,9 @@ and open the template in the editor.
             <div class="search">
                 <h:form id="searchForm" styleClass="searchForm">
                     <h:inputText id="searchText" value="#{describedObjectListController.searchString}" styleClass="searchText"/>
-                    <p:commandButton id="searchButton" value="Search" action="#{describedObjectListController.search}" styleClass="searchButton" ajax="false"/>
+                    <p:commandButton id="searchButton" value="Search" action="#{describedObjectListController.search}" styleClass="searchButton" update="@form :forumLinkForm"/>
                     <div class="clear"></div>
-                    <p:commandButton id="addButton" value="Add new Obj" action="#" styleClass="addButton" ajax="false"/>
+                    <p:commandButton id="addButton" value="Add new Obj" action="#" styleClass="addButton" update="@form :forumLinkForm"/>
                 </h:form>
             </div>
             

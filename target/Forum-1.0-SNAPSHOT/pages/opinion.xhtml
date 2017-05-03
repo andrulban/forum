@@ -18,7 +18,7 @@ and open the template in the editor.
         <ui:composition template="/templates/aForumTemplate.xhtml">            
             <ui:define name="main">
                 <div class="opinionDecObjPart">
-                    
+
                     <p:graphicImage alt="#{describedObjectListController.pageOfDataGrid.selectedDescribedObj.name}" value="/ImageReader?index=#{describedObjectListController.pageOfDataGrid.indexOfSelectedObj}" cache="false" styleClass="fotoOpinion"/>
 
                     <div class="objName">
@@ -34,24 +34,40 @@ and open the template in the editor.
                     </div>
 
                 </div>
-                
-                <h:form id="forumLinkForm">
-                    <p:dataGrid id="descriptionsDataGrid" columns="1" value="#{descriptionController.descriptionListDataModel}" 
-                                var="descr" lazy="true" paginator="true" emptyMessage=""
-                                styleClass="describedObjList" rows="20" paginatorPosition="bottom"
-                                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                                binding="#{descriptionController.dataGridDescription.dataGrid}">
-                        <div class="item">
 
-                            <p>desc.id</p>
-                            <p>desc.description</p>
-                            <p>desc.dateOfDescription</p>
-                            
+                <div class="commendAdding">
+                    
+                    <h:form id="commendAddingForm">
+                        <p:inputTextarea id="inputDescrTextarea" value="#{descriptionController.currentText}" cols="85" rows="15" 
+                                     class="commendAddingText" maxlength="1500" counterTemplate="Letters left {0}"/>
+                        <p:commandButton action="#{descriptionController.addCommend()}" value="Submit" class="submitButton" update="descriptionsDataGrid"/>
+                    </h:form>
+
+
+                </div>
+
+
+                <p:dataGrid id="descriptionsDataGrid" columns="1" value="#{descriptionController.descriptionListDataModel}" 
+                            var="descr" lazy="true" paginator="true" emptyMessage=""
+                            styleClass="describedObjList" rows="25" paginatorPosition="bottom"
+                            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                            binding="#{descriptionController.dataGridDescription.dataGrid}">
+                    <div class="commend">
+
+                        <div class="userName">
+
                         </div>
-                    </p:dataGrid>
-                </h:form>
 
+                        <div class="date">
+                            <p>#{descr.dateOfDescription}</p>
+                        </div>
 
+                        <div class="opinion">
+                            <p>#{descr.description}</p>
+                        </div>
+
+                    </div>
+                </p:dataGrid>
 
 
 

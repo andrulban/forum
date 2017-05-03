@@ -6,12 +6,18 @@
 package db_entitiesExt;
 
 import db_entities.Description;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
  * @author andrusha
  */
 public class DescriptionExt extends Description{
+
+    
+    
+    
     
     @Override
     public int hashCode() {
