@@ -17,6 +17,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -33,11 +34,13 @@ public class DescribedObjectListController implements Serializable {
     private DataGridDescribedObj dataGridDescribedObj;
     private PageOfDataGrid pageOfDataGrid;
     private long selectedIndex;
+    private DescribedObjExt addingDescribedObjExt;
 
     public DescribedObjectListController() {
         pageOfDataGrid = new PageOfDataGrid();
         dBConnector = new DBConnector(pageOfDataGrid);
         describedObjListDataModel = new DescribedObjListDataModel(pageOfDataGrid, dBConnector);
+        addingDescribedObjExt = new DescribedObjExt();
         //search();
     }
 
@@ -61,6 +64,20 @@ public class DescribedObjectListController implements Serializable {
             }
         }
         return "fail";
+    }
+
+    public void addObj() {
+        RequestContext.getCurrentInstance().execute("PF('describedObjAddingDialog').show();");
+    }
+
+    public void closeObjAdding() {
+        RequestContext.getCurrentInstance().execute("PF('describedObjAddingDialog').hide();");
+    }
+
+    public void saveObjAdding() {
+        dBConnector.addDescrObj(addingDescribedObjExt);
+        RequestContext.getCurrentInstance().execute("PF('describedObjAddingDialog').hide();");
+        addingDescribedObjExt = new DescribedObjExt();
     }
 
     public String getSearchString() {
@@ -109,6 +126,14 @@ public class DescribedObjectListController implements Serializable {
 
     public void setSelectedIndex(long selectedIndex) {
         this.selectedIndex = selectedIndex;
+    }
+
+    public DescribedObjExt getAddingDescribedObjExt() {
+        return addingDescribedObjExt;
+    }
+
+    public void setAddingDescribedObjExt(DescribedObjExt addingDescribedObjExt) {
+        this.addingDescribedObjExt = addingDescribedObjExt;
     }
 
 }

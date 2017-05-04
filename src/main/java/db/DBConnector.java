@@ -108,6 +108,10 @@ public class DBConnector {
         populatePageOfDataGrid();
     }
     
+    public void addDescrObj(DescribedObjExt describedObjExt) {
+        getSession().save(describedObjExt);
+    }
+    
     
 
     public void setPageOfDataGridDescriptions(PageOfDataGridDescriptions pageOfDataGridDescriptions) {

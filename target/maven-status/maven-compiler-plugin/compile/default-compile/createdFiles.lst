@@ -14,6 +14,7 @@ controllers/DescriptionController.class
 db/DBConnector.class
 db_entities/DescribedObj.class
 beans/PageOfDataGrid.class
+controllers/ImageController.class
 dataModels/DescribedObjListDataModel.class
 filters/HibernateSession$RequestWrapper.class
 db_entitiesExt/DescribedObjExt.class
