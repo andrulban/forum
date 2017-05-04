@@ -17,19 +17,29 @@ and open the template in the editor.
     <body>
         <ui:composition>
             <p:dialog modal="true" widgetVar="describedObjAddingDialog" dynamic="true" resizable="true" header="Object Addition" closable="false" closeOnEscape="false">
-                <h:form id="DescribedObjEditionForm">
+                <h:form id="DescribedObjAddingForm" enctype="multipart/form-data">
 
-                            <p style="margin: 0 0 5px 5px;">
-                                <h:outputText value="Upload image" style="padding: 0px 5px;"/>
-                                <p:fileUpload id="imageUpload" mode ="simple" value="#{imageController.file}" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" update="@form" sizeLimit="204800" multiple="false"/>                            
-                            </p>
-                    
-                    <p:inputText value="#{describedObjectListController.addingDescribedObjExt.name}"/>
-                    <p:inputText value="#{describedObjectListController.addingDescribedObjExt.contacts}"/>
+                    <p style="margin: 0 0 5px 5px;">
+                        <h:outputText value="Upload image" style="padding: 0px 5px;"/>
+                        <p:fileUpload id="imageUpload" mode ="simple" value="#{imageController.file}" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" update="@form" sizeLimit="204800" multiple="false"/>                            
+                    </p>
 
-                    
-                    <p:commandButton process="@form" action="#{describedObjectListController.saveObjAdding()}" value="Add" global="false" ajax="false"/>
-                    <p:commandButton process="@form" action="#{describedObjectListController.closeObjAdding()}" value="Cancel" immediate="true" global="false" ajax="false"/>    
+                    <h:outputText value="Name: " class="addDialogText" style="margin-right: 32px;"/>
+                    <p:inputText value="#{describedObjectListController.addingDescribedObjExt.name}" class="addDialogElem"/>
+
+                    <h:outputText value="Contacts: " class="addDialogText"/>
+                    <p:inputTextarea id="inputDescr" value="#{describedObjectListController.addingDescribedObjExt.contacts}" cols="45" rows="5" maxlength="200" class="addDialogElem"/>
+
+
+                    <div class="submitButtonWrap">
+                        <p:commandButton process="@form" action="#{imageController.upload()}" value="Add" global="false" ajax="false" styleClass="addingObjSubmitButton">
+                            <f:actionListener binding="#{describedObjectListController.addObj()}"/>
+                        </p:commandButton>
+                    </div>
+
+                    <div class="cancleButtonWrap">
+                        <p:commandButton process="@form" type="button" onclick="PF('describedObjAddingDialog').hide()" value="Cancel" immediate="true" global="false" ajax="false" styleClass="cancleButton"/>    
+                    </div>
 
                 </h:form>
             </p:dialog>

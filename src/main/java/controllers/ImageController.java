@@ -9,6 +9,9 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
@@ -19,25 +22,35 @@ import org.primefaces.model.UploadedFile;
 @ManagedBean
 @RequestScoped
 
-public class ImageController implements Serializable{
+public class ImageController implements Serializable {
+
     private byte[] uploadedImage;
     UploadedFile file;
-    @ManagedProperty(value = "#{describedObjectListController}")
-    private DescribedObjectListController describedObjectListController;
 
     public ImageController() {
-        
+
     }
-    
+
     public void upload() {
-        if(file.getContents().length==0) {
+        if (file.getContents().length == 0) {
             return;
         }
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        DescribedObjectListController describedObjectListController = (DescribedObjectListController) session.getAttribute("describedObjectListController");
         describedObjectListController.getAddingDescribedObjExt().setFoto(file.getContents());
         file = null;
     }
     
-    
+    public void uploadFromEditing() {
+        if (file.getContents().length == 0) {
+            return;
+        }
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        DescribedObjectListController describedObjectListController = (DescribedObjectListController) session.getAttribute("describedObjectListController");
+        describedObjectListController.getPageOfDataGrid().getSelectedDescribedObj().setFoto(file.getContents());
+        file = null;
+    }
+
     public UploadedFile getFile() {
         return file;
     }
@@ -45,6 +58,5 @@ public class ImageController implements Serializable{
     public void setFile(UploadedFile file) {
         this.file = file;
     }
-    
-    
+
 }

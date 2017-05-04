@@ -19,34 +19,45 @@ and open the template in the editor.
             <ui:define name="main">
                 <div class="opinionDecObjPart">
 
-                    <p:graphicImage alt="#{describedObjectListController.pageOfDataGrid.selectedDescribedObj.name}" value="/ImageReader?index=#{describedObjectListController.pageOfDataGrid.indexOfSelectedObj}" cache="false" styleClass="fotoOpinion"/>
+                    <h:form id="editDeleteFrom">
+                        <p:commandButton type="button" onclick="PF('describedObjEitingDialog').show()" value="Edit" styleClass="editButton"/>
+                        <p:commandButton type="button" onclick="PF('deletingObjAddingDialog').show()" value="Delete" styleClass="deleteButton"/>
 
-                    <div class="objName">
-                        <p>#{describedObjectListController.pageOfDataGrid.selectedDescribedObj.name}</p>
-                    </div>
-
-                    <div class="description">
-                        <p>#{describedObjectListController.pageOfDataGrid.selectedDescribedObj.contacts}</p>
-                    </div>
-
-                    <div class="raiting">
-
-                    </div>
-
-                </div>
-
-                <div class="commendAdding">
-                    
-                    <h:form id="commendAddingForm">
-                        <p:inputTextarea id="inputDescrTextarea" value="#{descriptionController.currentText}" cols="85" rows="15" 
-                                     class="commendAddingText" maxlength="1500" counterTemplate="Letters left {0}"/>
-                        <p:commandButton action="#{descriptionController.addCommend()}" value="Submit" class="submitButton" update="descriptionsDataGrid"/>
+                        <p:confirmDialog widgetVar="deletingObjAddingDialog" message="Do you really want to delete this?" width="300px" styleClass="dialog_delete">    
+                            <h:panelGrid columns="2" style="margin:0 auto; width:150px;">
+                                <p:commandButton value="Yes" action="#{describedObjectListController.deleteObj()}" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=" :globalMessage" onclick="PF('deletingObjAddingDialog').hide()" ajax="false"/>  
+                                <p:commandButton value="No" styleClass="ui-confirmdialog-no" icon="ui-icon-close" onclick="PF('deletingObjAddingDialog').hide()" type="button" ajax="false"/>       
+                            </h:panelGrid>
+                        </p:confirmDialog>
                     </h:form>
 
 
+
+
+                    <p:graphicImage alt="#{describedObjectListController.pageOfDataGrid.selectedDescribedObj.name}" value="/ImageReader?index=#{describedObjectListController.pageOfDataGrid.indexOfSelectedObj}" cache="false" styleClass="fotoOpinion"/>
+                    <div class="objName">
+                        <p>#{describedObjectListController.pageOfDataGrid.selectedDescribedObj.name}</p>
+                    </div>
+                    <div class="description">
+                        <p>#{describedObjectListController.pageOfDataGrid.selectedDescribedObj.contacts}</p>
+                    </div>
+                    <div class="raiting">
+                    </div>
+                
                 </div>
 
 
+                <div class="commendAdding">
+                    <h:form id="commendAddingForm">
+                        <p:inputTextarea id="inputDescrTextarea" value="#{descriptionController.currentText}" cols="85" rows="15" 
+                                         class="commendAddingText" maxlength="1500" counterTemplate="Letters left {0}"/>
+                        <div class="submitButtonCommendWrap">
+                            <p:commandButton action="#{descriptionController.addCommend()}" value="Submit" class="submitButton" update=":descriptionsDataGridForm inputDescrTextarea :globalMessage"/>
+                        </div>  
+                    </h:form>
+                </div>
+
+                <h:form id="descriptionsDataGridForm">
                 <p:dataGrid id="descriptionsDataGrid" columns="1" value="#{descriptionController.descriptionListDataModel}" 
                             var="descr" lazy="true" paginator="true" emptyMessage=""
                             styleClass="describedObjList" rows="25" paginatorPosition="bottom"
@@ -57,17 +68,21 @@ and open the template in the editor.
                         <div class="userName">
 
                         </div>
-
+                            <p:commandLink value="X" action="#{descriptionController.deleteCommend(descr)}" update="@form" style="float: left; font-weight: bold; margin-right: 10px;"/>
                         <div class="date">
-                            <p>#{descr.dateOfDescription}</p>
+                            <p>#{descr.dateOfDescription}</p>                            
                         </div>
 
                         <div class="opinion">
                             <p>#{descr.description}</p>
                         </div>
-
                     </div>
                 </p:dataGrid>
+                </h:form>
+
+
+                <ui:include src="/parts/describedObjEditingDialog.xhtml"/>  <!-->DescribedObjEditingDialog has his own form, that's why it is not in upper form<-->
+
 
 
 

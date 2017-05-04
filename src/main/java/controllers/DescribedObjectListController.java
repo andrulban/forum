@@ -13,6 +13,7 @@ import db_entities.DescribedObj;
 import db_entitiesExt.DescribedObjExt;
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -67,19 +68,26 @@ public class DescribedObjectListController implements Serializable {
     }
 
     public void addObj() {
-        RequestContext.getCurrentInstance().execute("PF('describedObjAddingDialog').show();");
-    }
-
-    public void closeObjAdding() {
-        RequestContext.getCurrentInstance().execute("PF('describedObjAddingDialog').hide();");
-    }
-
-    public void saveObjAdding() {
         dBConnector.addDescrObj(addingDescribedObjExt);
         RequestContext.getCurrentInstance().execute("PF('describedObjAddingDialog').hide();");
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Object has been added!"));
         addingDescribedObjExt = new DescribedObjExt();
+        dBConnector.populatePageOfDataGrid();
     }
 
+    public String deleteObj() {
+        dBConnector.deleteDescrObj(pageOfDataGrid.getSelectedDescribedObj());
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(pageOfDataGrid.getSelectedDescribedObj().getName()+" has been deleted!"));
+        pageOfDataGrid.setSelectedDescribedObj(new DescribedObjExt());
+        dBConnector.populatePageOfDataGrid();
+        return "forum";
+    }
+    
+    public void editObj() {
+        dBConnector.editDescrObj(pageOfDataGrid.getSelectedDescribedObj());
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(pageOfDataGrid.getSelectedDescribedObj().getName()+" has been edited!"));
+    }   
+    
     public String getSearchString() {
         return searchString;
     }

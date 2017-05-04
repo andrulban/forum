@@ -112,6 +112,14 @@ public class DBConnector {
         getSession().save(describedObjExt);
     }
     
+    public void deleteDescrObj(DescribedObjExt describedObjExt) {
+        getSession().delete(describedObjExt);
+    }
+    
+    public void editDescrObj(DescribedObjExt describedObjExt) {
+        getSession().update(describedObjExt);
+    }
+    
     
 
     public void setPageOfDataGridDescriptions(PageOfDataGridDescriptions pageOfDataGridDescriptions) {
@@ -127,6 +135,10 @@ public class DBConnector {
     
     public void addCommend(DescriptionExt commend) {
         getSession().save(commend);
+    }
+    
+    public void deleteCommend(DescriptionExt commend) {
+        getSession().delete(commend);
     }
 
 }

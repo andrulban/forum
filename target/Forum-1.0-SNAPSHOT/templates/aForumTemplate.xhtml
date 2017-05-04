@@ -27,6 +27,7 @@ and open the template in the editor.
             <ui:include src="/parts/search.xhtml"/>
             <ui:insert name="books_count"/>
             <div class="content">
+                <p:growl life="3000" id="globalMessage" globalOnly="true"/>
                 <ui:insert name="main"/>
             </div>
         </div>

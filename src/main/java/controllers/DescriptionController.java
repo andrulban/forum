@@ -15,6 +15,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.enterprise.context.spi.Context;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -60,6 +61,11 @@ public class DescriptionController implements Serializable{
         dBConnector.addCommend(descriptionExt);
         
         currentText=null;
+    }
+    
+    public void deleteCommend(DescriptionExt descriptionExt) {
+        dBConnector.deleteCommend(descriptionExt);
+        dBConnector.populatePageOfDataGridDescription();
     }
     
     
