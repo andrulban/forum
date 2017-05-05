@@ -6,19 +6,12 @@
 package db_entitiesExt;
 
 import db_entities.Description;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  *
  * @author andrusha
  */
 public class DescriptionExt extends Description{
-
-    
-    
-    
-    
     @Override
     public int hashCode() {
         int hash = 3;
@@ -43,7 +36,6 @@ public class DescriptionExt extends Description{
 
     @Override
     public String toString() {
-        return String.valueOf(super.getIdObject())+" - if of described object";
+        return super.getDescription();
     }
-    
 }

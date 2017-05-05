@@ -36,7 +36,7 @@ and open the template in the editor.
                                 </div>
                             </p:commandLink>
                             <h:outputText value="Go to next page (upper link) to rate it." style="font-weight: bold;"/>
-                            <p><h:outputText value="Rating:"/></p>
+                            <p><h:outputText value="Rating: (#{obj.amountOfGrade} votes) "/></p>
                                 <p:rating value="#{obj.grade}" readonly="true"/>
                                 
 

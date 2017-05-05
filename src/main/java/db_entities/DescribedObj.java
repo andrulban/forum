@@ -1,5 +1,5 @@
 package db_entities;
-// Generated 05.05.2017 12:56:07 by Hibernate Tools 4.3.1
+// Generated 05.05.2017 16:33:58 by Hibernate Tools 4.3.1
 
 
 
@@ -14,6 +14,7 @@ public class DescribedObj  implements java.io.Serializable {
      private byte[] foto;
      private String contacts;
      private Integer grade;
+     private Integer amountOfGrade;
 
     public DescribedObj() {
     }
@@ -23,11 +24,12 @@ public class DescribedObj  implements java.io.Serializable {
         this.name = name;
         this.contacts = contacts;
     }
-    public DescribedObj(String name, byte[] foto, String contacts, Integer grade) {
+    public DescribedObj(String name, byte[] foto, String contacts, Integer grade, Integer amountOfGrade) {
        this.name = name;
        this.foto = foto;
        this.contacts = contacts;
        this.grade = grade;
+       this.amountOfGrade = amountOfGrade;
     }
    
     public Long getId() {
@@ -64,6 +66,13 @@ public class DescribedObj  implements java.io.Serializable {
     
     public void setGrade(Integer grade) {
         this.grade = grade;
+    }
+    public Integer getAmountOfGrade() {
+        return this.amountOfGrade;
+    }
+    
+    public void setAmountOfGrade(Integer amountOfGrade) {
+        this.amountOfGrade = amountOfGrade;
     }
 
 

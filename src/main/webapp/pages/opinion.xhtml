@@ -43,7 +43,7 @@ and open the template in the editor.
                     </div>
                     <div class="raiting">
                         <h:form>
-                            <h:outputText value="Rating: " />
+                            <h:outputText value="Rating: (#{describedObjectListController.pageOfDataGrid.selectedDescribedObj.amountOfGrade} votes) " />
                             <p:rating value="#{describedObjectListController.pageOfDataGrid.selectedDescribedObj.grade}" cancel="false" onRate="rate()"/>
                             <p:remoteCommand name="rate" actionListener="#{describedObjectListController.vote()}" update=":globalMessage @form"/>
                         </h:form>

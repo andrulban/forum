@@ -11,7 +11,7 @@ import db_entities.Grade;
  *
  * @author andrusha
  */
-public class GradeExt extends Grade{
+public class GradeExt extends  Grade{
     @Override
     public int hashCode() {
         int hash = 3;
@@ -36,6 +36,6 @@ public class GradeExt extends Grade{
 
     @Override
     public String toString() {
-        return Integer.toString(super.getValue());
+        return ((Integer) super.getValue()).toString();
     }
 }

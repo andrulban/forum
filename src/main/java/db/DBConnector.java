@@ -114,6 +114,7 @@ public class DBConnector {
     }
     
     public void addDescrObj(DescribedObjExt describedObjExt) {
+        describedObjExt.setAmountOfGrade(0);
         getSession().save(describedObjExt);
     }
     
@@ -150,6 +151,7 @@ public class DBConnector {
         criteria.setProjection(Projections.avg("this.value")).add(Restrictions.eq("this.idDescObj", pageOfDataGrid.getSelectedDescribedObj().getId()));
         int grade = Double.valueOf(criteria.uniqueResult().toString()).intValue();
         pageOfDataGrid.getSelectedDescribedObj().setGrade(grade);
+        pageOfDataGrid.getSelectedDescribedObj().setAmountOfGrade(pageOfDataGrid.getSelectedDescribedObj().getAmountOfGrade()+1);
         getSession().update(pageOfDataGrid.getSelectedDescribedObj());
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("You have rated"));
         
