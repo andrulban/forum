@@ -10,6 +10,8 @@ dataModels/DescriptionListDataModel.class
 filters/HibernateSession$ResponseWrapper.class
 beans/PageOfDataGridDescriptions.class
 beans/User.class
+db_entities/Grade.class
+db_entitiesExt/GradeExt.class
 controllers/DescriptionController.class
 db/DBConnector.class
 db_entities/DescribedObj.class

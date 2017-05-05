@@ -19,6 +19,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.RateEvent;
 
 /**
  *
@@ -88,6 +89,21 @@ public class DescribedObjectListController implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(pageOfDataGrid.getSelectedDescribedObj().getName()+" has been edited!"));
     }   
     
+    public void vote() {
+        dBConnector.vote();
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public String getSearchString() {
         return searchString;
     }
@@ -143,5 +159,7 @@ public class DescribedObjectListController implements Serializable {
     public void setAddingDescribedObjExt(DescribedObjExt addingDescribedObjExt) {
         this.addingDescribedObjExt = addingDescribedObjExt;
     }
+    
+    
 
 }

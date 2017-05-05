@@ -11,8 +11,13 @@ import db_entities.DescribedObj;
 import db_entities.HibernateUtil;
 import db_entitiesExt.DescribedObjExt;
 import db_entitiesExt.DescriptionExt;
+import db_entitiesExt.GradeExt;
+import java.util.HashMap;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -120,6 +125,52 @@ public class DBConnector {
         getSession().update(describedObjExt);
     }
     
+    public void vote() {
+        Criteria c = getSession().createCriteria(GradeExt.class);
+        c.add(Restrictions.eq("this.idUser", 3L)).add(Restrictions.eq("this.idDescObj", pageOfDataGrid.getSelectedDescribedObj().getId()));
+        List tr = c.list();
+        if (!tr.isEmpty()) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("You can't rate it, you have already done it before. One person - one grade."));
+            return;
+        }
+        GradeExt grade = new GradeExt();
+        grade.setIdDescObj(pageOfDataGrid.getSelectedDescribedObj().getId());
+        grade.setIdUser(1);
+        grade.setValue(pageOfDataGrid.getSelectedDescribedObj().getGrade());
+        getSession().save(grade);
+        
+        updateDescObjGrade();
+    }
+    
+    private void updateDescObjGrade() {
+       
+        Criteria criteria = getSession().createCriteria(GradeExt.class);
+        //criteria.setProjection(Projections.count("this.value")).add(Restrictions.eq("this.idDescObj", describedObjExt.getId()));
+        //int count = (Integer) criteria.uniqueResult();
+        criteria.setProjection(Projections.avg("this.value")).add(Restrictions.eq("this.idDescObj", pageOfDataGrid.getSelectedDescribedObj().getId()));
+        int grade = Double.valueOf(criteria.uniqueResult().toString()).intValue();
+        pageOfDataGrid.getSelectedDescribedObj().setGrade(grade);
+        getSession().update(pageOfDataGrid.getSelectedDescribedObj());
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("You have rated"));
+        
+        /* Query query = getSession().createQuery("select new map(round(avg(value)) as rating, count(value) as gradeCount)  from GradeExt g where g.idDescObj.id=:id");
+        query.setParameter("id", describedObjExt.getId());
+
+        List list = query.list();
+
+        HashMap<String, Object> map = (HashMap<String, Object>) list.get(0);
+
+        long gradeCount = Long.valueOf(map.get("gradeCount").toString());
+        int grade = Float.valueOf(map.get("rating").toString()).intValue();
+
+        query = getSession().createQuery("update DescribedObjExt set grade = :grade "
+                + " where id = :id");
+
+        query.setParameter("grade", grade);
+        query.setParameter("id", describedObjExt.getId());
+
+        int result = query.executeUpdate();*/
+    }
     
 
     public void setPageOfDataGridDescriptions(PageOfDataGridDescriptions pageOfDataGridDescriptions) {
@@ -140,5 +191,9 @@ public class DBConnector {
     public void deleteCommend(DescriptionExt commend) {
         getSession().delete(commend);
     }
+    
+    
+    
+    
 
 }

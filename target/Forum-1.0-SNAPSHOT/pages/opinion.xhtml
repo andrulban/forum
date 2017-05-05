@@ -42,14 +42,19 @@ and open the template in the editor.
                         <p>#{describedObjectListController.pageOfDataGrid.selectedDescribedObj.contacts}</p>
                     </div>
                     <div class="raiting">
+                        <h:form>
+                            <h:outputText value="Rating: " />
+                            <p:rating value="#{describedObjectListController.pageOfDataGrid.selectedDescribedObj.grade}" cancel="false" onRate="rate()"/>
+                            <p:remoteCommand name="rate" actionListener="#{describedObjectListController.vote()}" update=":globalMessage @form"/>
+                        </h:form>
                     </div>
-                
+
                 </div>
 
 
                 <div class="commendAdding">
                     <h:form id="commendAddingForm">
-                        <p:inputTextarea id="inputDescrTextarea" value="#{descriptionController.currentText}" cols="85" rows="15" 
+                        <p:inputTextarea id="inputDescrTextarea" value="#{descriptionController.currentText}" cols="85" rows="8" 
                                          class="commendAddingText" maxlength="1500" counterTemplate="Letters left {0}"/>
                         <div class="submitButtonCommendWrap">
                             <p:commandButton action="#{descriptionController.addCommend()}" value="Submit" class="submitButton" update=":descriptionsDataGridForm inputDescrTextarea :globalMessage"/>
@@ -58,26 +63,26 @@ and open the template in the editor.
                 </div>
 
                 <h:form id="descriptionsDataGridForm">
-                <p:dataGrid id="descriptionsDataGrid" columns="1" value="#{descriptionController.descriptionListDataModel}" 
-                            var="descr" lazy="true" paginator="true" emptyMessage=""
-                            styleClass="describedObjList" rows="25" paginatorPosition="bottom"
-                            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                            binding="#{descriptionController.dataGridDescription.dataGrid}">
-                    <div class="commend">
+                    <p:dataGrid id="descriptionsDataGrid" columns="1" value="#{descriptionController.descriptionListDataModel}" 
+                                var="descr" lazy="true" paginator="true" emptyMessage=""
+                                styleClass="describedObjList" rows="25" paginatorPosition="bottom"
+                                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                binding="#{descriptionController.dataGridDescription.dataGrid}">
+                        <div class="commend">
 
-                        <div class="userName">
+                            <div class="userName">
 
-                        </div>
+                            </div>
                             <p:commandLink value="X" action="#{descriptionController.deleteCommend(descr)}" update="@form" style="float: left; font-weight: bold; margin-right: 10px;"/>
-                        <div class="date">
-                            <p>#{descr.dateOfDescription}</p>                            
-                        </div>
+                            <div class="date">
+                                <p>#{descr.dateOfDescription}</p>                            
+                            </div>
 
-                        <div class="opinion">
-                            <p>#{descr.description}</p>
+                            <div class="opinion">
+                                <p>#{descr.description}</p>
+                            </div>
                         </div>
-                    </div>
-                </p:dataGrid>
+                    </p:dataGrid>
                 </h:form>
 
 

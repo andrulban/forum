@@ -51,5 +51,6 @@ Contributor(s):
     <property name="hibernate.current_session_context_class">thread</property>
     <mapping resource="db_entities/DescribedObj.hbm.xml"/>
     <mapping resource="db_entities/Description.hbm.xml"/>
+    <mapping resource="db_entities/Grade.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
