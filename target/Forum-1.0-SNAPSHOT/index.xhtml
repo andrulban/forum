@@ -4,51 +4,54 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-          
+
       xmlns:p="http://primefaces.org/ui">
-        <h:head>
-            <title>WSIZ Forum</title>
-            <link rel="shortcut icon" href="#"/>
-            <h:outputStylesheet library="css" name="index.css"  />
-        </h:head>
-        <h:body>           
+    <h:head>
+        <title>WForum</title>
+        <link rel="shortcut icon" href="#"/>
+        <h:outputStylesheet library="css" name="index.css"  />
+    </h:head>
+    <h:body>           
 
-            <div class="main">
-                <div class="header">
-                    
-                    <h:panelGroup id="welcome_title">
-                        <h2>Welcome to the
-                            <p>WSIZ forum</p>
-                        </h2>
-                    </h:panelGroup>
-                </div>
-                <h:panelGroup id="index_input">
-                    <h3>Log in please</h3>
+        <div class="main">
+            <div class="header">
+
+                <h:panelGroup id="welcome_title">
+                    <h2>Welcome to the
+                        <p>WSIZ forum</p>
+                    </h2>
+                    <p:commandButton id="signUp" value="Sign Up" type="button" onclick="PF('registrationDialog').show()" styleClass="signUpButton"/>
                 </h:panelGroup>
-                <div class="input">       
-                    <h:form id="login_form" styleClass="login_form">
-                        <h:outputText value="Type your name here"/>
-                        <p:inputText id="username"  value="#{userController.username}" styleClass="stringUserName" required="true" requiredMessage="Name should be written"/>
-                        <p:message id="logMes" for="username" display="text" showDetail="true"/>
-                        
-                        <p>
-                            <h:outputText value="Write password here"/>
-                            <p:password id="userpassword" value="#{userController.password}" styleClass="stringPassword"  required="true" redisplay="true" requiredMessage="Password should be written"/>
-                            <p:message id="pasMes" for="userpassword" display="text" showDetail="true"/>
-                        </p>
-                       
-                        <div>
-                            <p:commandButton id="button" styleClass="button" action="#{userController.goToBooks()}" update="login_form" value="Log in" onclick="return checkValue(this.form, 'Name is obligatory to be written');" global="true" />
-                            
-                        </div>
-                        <p:message for="login_form" display="text" showDetail="true"/>
-                    </h:form>
-                </div>                
             </div>
+            <h:panelGroup id="index_input">
+                <h3>Log in please</h3>
+            </h:panelGroup>
+            <div class="input">       
+                <h:form id="login_form" styleClass="login_form">
+                    <h:outputText value="Type your name here"/>
+                    <p:inputText id="username"  value="#{userController.username}" styleClass="stringUserName" required="true" requiredMessage="Name should be written"/>
+                    <p:message id="logMes" for="username" display="text" showDetail="true"/>
 
-            
+                    <p>
+                        <h:outputText value="Write password here"/>
+                        <p:password id="userpassword" value="#{userController.password}" styleClass="stringPassword"  required="true" redisplay="true" requiredMessage="Password should be written"/>
+                        <p:message id="pasMes" for="userpassword" display="text" showDetail="true"/>
+                    </p>
+
+                    <div>
+                        <p:commandButton id="logInbutton" action="#{userController.goToBooks()}" update="login_form" value="Log in" 
+                                         onclick="return checkValue(this.form, 'Name is obligatory to be written');" styleClass="logInButton" />
+                    </div>
+                    <p:message for="login_form" display="text" showDetail="true"/>
+                </h:form>
+            </div>                
+        </div>
+
+        <ui:include src="/parts/registrationDialog.xhtml"/>
+
+        <p:growl life="3000" id="globalIndexMessage" globalOnly="true"/>
 
 
-            <div class="footer">Andrii Tytarchuk 2017</div>
-        </h:body>
+        <div class="footer">Andrii Tytarchuk 2017</div>
+    </h:body>
 </html>

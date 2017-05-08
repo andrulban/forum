@@ -20,8 +20,8 @@ and open the template in the editor.
                 <div class="opinionDecObjPart">
 
                     <h:form id="editDeleteFrom">
-                        <p:commandButton type="button" onclick="PF('describedObjEitingDialog').show()" value="Edit" styleClass="editButton"/>
-                        <p:commandButton type="button" onclick="PF('deletingObjAddingDialog').show()" value="Delete" styleClass="deleteButton"/>
+                        <p:commandButton rendered="#{userController.user.role==10}" type="button" onclick="PF('describedObjEitingDialog').show()" value="Edit" styleClass="editButton"/>
+                        <p:commandButton rendered="#{userController.user.role==10}" type="button" onclick="PF('deletingObjAddingDialog').show()" value="Delete" styleClass="deleteButton"/>
 
                         <p:confirmDialog widgetVar="deletingObjAddingDialog" message="Do you really want to delete this?" width="300px" styleClass="dialog_delete">    
                             <h:panelGrid columns="2" style="margin:0 auto; width:150px;">
@@ -71,9 +71,9 @@ and open the template in the editor.
                         <div class="commend">
 
                             <div class="userName">
-
+                                #{descr.user.username}:
                             </div>
-                            <p:commandLink value="X" action="#{descriptionController.deleteCommend(descr)}" update="@form" style="float: left; font-weight: bold; margin-right: 10px;"/>
+                            <p:commandLink value="X" rendered="#{userController.user.role==10}" action="#{descriptionController.deleteCommend(descr)}" update="@form" style="float: left; font-weight: bold; margin-right: 10px;"/>
                             <div class="date">
                                 <p>#{descr.dateOfDescription}</p>                            
                             </div>

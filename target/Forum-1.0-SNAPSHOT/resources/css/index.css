@@ -3,11 +3,11 @@
     padding: 0;
 }
 
-div.main {
+.main {
   min-height: calc(100vh - 60px);
 }
 
-div.footer {
+.footer {
     height: 50px;
     padding: 5px;
     color: royalblue;
@@ -15,16 +15,18 @@ div.footer {
 }
 
 
-h2 {
-    color: green;
-}
+
 
 div {
     text-align: center;
 }
 
-div.header {
+.header {
     padding: 7%;
+}
+
+.header h2 {
+    color: red;
 }
 
 input.stringUserName {
@@ -83,4 +85,45 @@ input.button {
     display: none;
     vertical-align: top;
     float: right;
+}
+
+.logInButton {
+     width: 100px; height: 40px; border-radius: 3px; color: #fff; font-size: 16px; cursor: pointer; background: green; border: none;
+}
+
+.signUpButton {
+     width: 100px; height: 40px; border-radius: 3px; color: #fff; font-size: 16px; cursor: pointer; background: red; border: none;
+}
+
+.addDialogText {
+    clear: left;
+    float: left;
+    color: red;
+    font-weight: bold;
+    font-size: 110%;
+    margin: 15px 10px;
+}
+
+.addDialogElem {
+    float: left;
+    border: 0;
+    margin-top: 30px;
+}
+
+.signUpButtonWrap {
+    clear: both;
+    float: left;
+}
+
+.signUpButtonWrap .signUpButton {
+    width: 100px; height: 40px; margin-top: 15px; border-radius: 3px; color: #fff; font-size: 16px; cursor: pointer; background: #d5564d; border: none; 
+
+}
+
+.cancleButtonWrap {
+    float: right;
+}
+
+.cancleButtonWrap .cancleButton {
+    width: 100px; height: 40px; margin-top: 15px; border-radius: 3px; color: #fff; font-size: 16px; cursor: pointer; background: #d5564d; border: none; 
 }

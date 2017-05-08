@@ -7,9 +7,11 @@ package controllers;
 
 import db.DBConnector;
 import db_entities.HibernateUtil;
+import db_entities.Invitations;
 import db_entitiesExt.UserExt;
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -18,6 +20,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -31,10 +34,12 @@ public class UserController implements Serializable {
     private String username;
     private String password;
     private DBConnector dBConnector;
+    private Invitations invite;
     private UserExt user;
 
     public UserController() {
         dBConnector = new DBConnector();
+        invite = new Invitations();
     }
 
     public String goHome() {
@@ -42,60 +47,23 @@ public class UserController implements Serializable {
     }
 
     public String goToBooks() {
-        user =dBConnector.login(getUsername(), getPassword());
-        if (user!=null) {
+        user = dBConnector.login(getUsername(), getPassword());
+        if (user != null) {
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-            session.setAttribute("login",true);
+            session.setAttribute("login", true);
             return "forum";
         }
         return "index";
     }
 
-
-    /*   public String login() {
-        try {
-
-//            ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).logout();
-//            FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-            if (request.getUserPrincipal() == null || (request.getUserPrincipal() != null && !request.getUserPrincipal().getName().equals(username))) {
-                request.logout();
-                request.login(username, password);
-            }
-
-            // ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).login(username, password);
-            return "tobooksfromindex";
-        } catch (ServletException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-            FacesContext context = FacesContext.getCurrentInstance();
-            ResourceBundle rs = ResourceBundle.getBundle("propertiesFiles/messages", context.getViewRoot().getLocale());
-            FacesMessage message = new FacesMessage(rs.getString("index_invalidLogOrPas"));
-            message.setSeverity(FacesMessage.SEVERITY_ERROR);
-            context.addMessage("login_form", message);
-
-        }
-
-        return "index";
-
+    public void signUp() {
+        dBConnector.signUp(username, password, invite.getKeyStr());
+        RequestContext.getCurrentInstance().execute("PF('registrationDialog').hide();");
+        invite=new Invitations();
     }
 
-    public String logout() {
-        String result = "index";
 
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-
-        try {
-            request.logout();
-        } catch (ServletException e) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, e);
-        }
-
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-
-        return result;
-    }
-     */
+    
     public String getUsername() {
         return username;
     }
@@ -127,5 +95,15 @@ public class UserController implements Serializable {
     public UserExt getUser() {
         return user;
     }
+
+    public Invitations getInvite() {
+        return invite;
+    }
+
+    public void setInvite(Invitations invite) {
+        this.invite = invite;
+    }
+
+    
 
 }

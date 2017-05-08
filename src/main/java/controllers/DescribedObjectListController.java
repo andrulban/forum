@@ -46,7 +46,6 @@ public class DescribedObjectListController implements Serializable {
         dBConnector.setPageOfDataGrid(pageOfDataGrid);
         describedObjListDataModel = new DescribedObjListDataModel(pageOfDataGrid, dBConnector);
         addingDescribedObjExt = new DescribedObjExt();
-        //search();
     }
 
     public String search() {

@@ -9,6 +9,7 @@ import beans.PageOfDataGrid;
 import beans.PageOfDataGridDescriptions;
 import db_entities.DescribedObj;
 import db_entities.HibernateUtil;
+import db_entities.Invitations;
 import db_entitiesExt.DescribedObjExt;
 import db_entitiesExt.DescriptionExt;
 import db_entitiesExt.GradeExt;
@@ -26,6 +27,7 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.exception.ConstraintViolationException;
 import org.hibernate.transform.Transformers;
 
 /**
@@ -49,7 +51,7 @@ public class DBConnector {
         createDCriteria();
         createDDescriptionCriteria();
     }
-    
+
     public void setPageOfDataGrid(PageOfDataGrid pageOfDataGrid) {
         this.pageOfDataGrid = pageOfDataGrid;
         populatePageOfDataGrid();
@@ -131,8 +133,9 @@ public class DBConnector {
     }
 
     public void vote() {
+        
         Criteria c = getSession().createCriteria(GradeExt.class);
-        c.add(Restrictions.eq("this.idUser", 3L)).add(Restrictions.eq("this.idDescObj", pageOfDataGrid.getSelectedDescribedObj().getId()));
+        c.add(Restrictions.eq("this.idUser",userExt.getId())).add(Restrictions.eq("this.idDescObj", pageOfDataGrid.getSelectedDescribedObj().getId()));
         List tr = c.list();
         if (!tr.isEmpty()) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("You can't rate it, you have already done it before. One person - one grade."));
@@ -140,7 +143,7 @@ public class DBConnector {
         }
         GradeExt grade = new GradeExt();
         grade.setIdDescObj(pageOfDataGrid.getSelectedDescribedObj().getId());
-        grade.setIdUser(1);
+        grade.setIdUser(userExt.getId());
         grade.setValue(pageOfDataGrid.getSelectedDescribedObj().getGrade());
         getSession().save(grade);
 
@@ -195,9 +198,7 @@ public class DBConnector {
     public void deleteCommend(DescriptionExt commend) {
         getSession().delete(commend);
     }
-    
-    
-    
+
     public UserExt login(String username, String password) {
         getSession().beginTransaction();
         Criteria c = getSession().createCriteria(UserExt.class);
@@ -208,11 +209,51 @@ public class DBConnector {
 
         if (!list.isEmpty()) {
             userExt = list.get(0);
+            getSession().close();
             return userExt;
         }
+        getSession().close();
         return null;
     }
 
-    
+    public void signUp(String username, String password, String key) {
+        getSession().beginTransaction();
+        Criteria c = getSession().createCriteria(Invitations.class);
+        c.add(Restrictions.eq("keyStr", key));
+        List<Invitations> keys = c.list();
+
+        if (!keys.isEmpty()) {
+            UserExt u = new UserExt();
+            u.setUsername(username);
+            u.setPassword(password);
+            u.setRole(keys.get(0).getLvlPermission());
+            try {
+                getSession().save(u);
+                getSession().getTransaction().commit();
+                getSession().beginTransaction();
+                getSession().delete(keys.get(0));
+                getSession().getTransaction().commit();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Congratulations! Now you can log in!"));
+            } catch (ConstraintViolationException ex) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("This username is already exists, try again."));
+            } finally {
+                getSession().close();
+            }
+
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Key is not valid!"));
+        }
+
+        /*
+        getSession().beginTransaction();
+        Invitations invite = new Invitations();
+        invite.setKeyStr(key);
+        try {
+            getSession().save(invite);
+            getSession().getTransaction().commit();
+        } catch (ConstraintViolationException ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("..."));
+        }*/
+    }
 
 }

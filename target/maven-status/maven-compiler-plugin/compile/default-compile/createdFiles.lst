@@ -12,7 +12,6 @@ controllers/DescribedObjectListController.class
 dataModels/DescriptionListDataModel.class
 filters/HibernateSession$ResponseWrapper.class
 beans/PageOfDataGridDescriptions.class
-db_entities/Key.class
 db_entities/Grade.class
 db_entitiesExt/GradeExt.class
 controllers/DescriptionController.class
