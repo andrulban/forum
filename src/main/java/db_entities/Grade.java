@@ -1,5 +1,5 @@
 package db_entities;
-// Generated 05.05.2017 16:33:58 by Hibernate Tools 4.3.1
+// Generated 08.05.2017 12:31:59 by Hibernate Tools 4.3.1
 
 
 

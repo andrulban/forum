@@ -15,17 +15,18 @@ and open the template in the editor.
     </h:head>
     <h:body>
         <ui:composition>
-            
-            
+
+            <h:form id="logoForm">
                 <div class="logo">
-                    <p:commandLink action="forum">
+                    <p:commandLink action="forum" update=":mainPanelGroup" process="@form">
                         <h:graphicImage library="images" name="libraryLogo.png"/>
                     </p:commandLink>
                 </div>
-           
+            </h:form>
 
-            
-            
+
+
+
         </ui:composition>
     </h:body>
 </html>

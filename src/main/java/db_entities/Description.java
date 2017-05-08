@@ -1,5 +1,5 @@
 package db_entities;
-// Generated 05.05.2017 16:33:58 by Hibernate Tools 4.3.1
+// Generated 08.05.2017 12:31:59 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -11,17 +11,17 @@ public class Description  implements java.io.Serializable {
 
 
      private Long id;
+     private User user;
      private long idObject;
-     private long idUser;
      private String description;
      private Date dateOfDescription;
 
     public Description() {
     }
 
-    public Description(long idObject, long idUser, String description, Date dateOfDescription) {
+    public Description(User user, long idObject, String description, Date dateOfDescription) {
+       this.user = user;
        this.idObject = idObject;
-       this.idUser = idUser;
        this.description = description;
        this.dateOfDescription = dateOfDescription;
     }
@@ -33,19 +33,19 @@ public class Description  implements java.io.Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+    public User getUser() {
+        return this.user;
+    }
+    
+    public void setUser(User user) {
+        this.user = user;
+    }
     public long getIdObject() {
         return this.idObject;
     }
     
     public void setIdObject(long idObject) {
         this.idObject = idObject;
-    }
-    public long getIdUser() {
-        return this.idUser;
-    }
-    
-    public void setIdUser(long idUser) {
-        this.idUser = idUser;
     }
     public String getDescription() {
         return this.description;

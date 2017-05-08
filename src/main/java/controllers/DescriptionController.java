@@ -57,7 +57,7 @@ public class DescriptionController implements Serializable{
         descriptionExt.setDescription(currentText);
         descriptionExt.setDateOfDescription(new Date());
         descriptionExt.setIdObject(describedObjectListController.getPageOfDataGrid().getSelectedDescribedObj().getId());
-        descriptionExt.setIdUser(1);
+        
         dBConnector.addCommend(descriptionExt);
         
         currentText=null;

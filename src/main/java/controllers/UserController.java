@@ -3,11 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package beans;
+package controllers;
 
+import db.DBConnector;
+import db_entities.HibernateUtil;
+import db_entitiesExt.UserExt;
 import java.io.Serializable;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -16,37 +26,33 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 @ManagedBean
 
+public class UserController implements Serializable {
 
-public class User implements Serializable{
-    
     private String username;
     private String password;
+    private DBConnector dBConnector;
+    private UserExt user;
 
-    public User() {
+    public UserController() {
+        dBConnector = new DBConnector();
     }
 
-    /*public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }*/
-
-    public String getUsername() {
-        return username;
+    public String goHome() {
+        return "index";
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String goToBooks() {
+        user =dBConnector.login(getUsername(), getPassword());
+        if (user!=null) {
+            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+            session.setAttribute("login",true);
+            return "forum";
+        }
+        return "index";
     }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
- /*   public String login() {
+    /*   public String login() {
         try {
 
 //            ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).logout();
@@ -89,14 +95,37 @@ public class User implements Serializable{
 
         return result;
     }
-*/
-    public String goHome() {
-        return "index";
+     */
+    public String getUsername() {
+        return username;
     }
 
-    public String goToBooks() {
-        return "forum";
+    public void setUsername(String username) {
+        this.username = username;
     }
-    
-    
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setdBConnector(DBConnector dBConnector) {
+        this.dBConnector = dBConnector;
+    }
+
+    public void setUser(UserExt user) {
+        this.user = user;
+    }
+
+    public DBConnector getdBConnector() {
+        return dBConnector;
+    }
+
+    public UserExt getUser() {
+        return user;
+    }
+
 }

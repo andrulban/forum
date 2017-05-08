@@ -40,7 +40,10 @@ public class DescribedObjectListController implements Serializable {
 
     public DescribedObjectListController() {
         pageOfDataGrid = new PageOfDataGrid();
-        dBConnector = new DBConnector(pageOfDataGrid);
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        UserController uc = (UserController) session.getAttribute("userController");
+        dBConnector = uc.getdBConnector();
+        dBConnector.setPageOfDataGrid(pageOfDataGrid);
         describedObjListDataModel = new DescribedObjListDataModel(pageOfDataGrid, dBConnector);
         addingDescribedObjExt = new DescribedObjExt();
         //search();

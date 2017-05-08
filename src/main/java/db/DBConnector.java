@@ -12,6 +12,7 @@ import db_entities.HibernateUtil;
 import db_entitiesExt.DescribedObjExt;
 import db_entitiesExt.DescriptionExt;
 import db_entitiesExt.GradeExt;
+import db_entitiesExt.UserExt;
 import java.util.HashMap;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -41,31 +42,34 @@ public class DBConnector {
     private DetachedCriteria dDescriptionCriteria;
     private DetachedCriteria dDescriptionCriteriaCount;
     private PageOfDataGridDescriptions pageOfDataGridDescriptions;
+    private UserExt userExt;
 
-    
-    public DBConnector(PageOfDataGrid pageOfDataGrid) {
+    public DBConnector() {
         sessionFactory = HibernateUtil.getSessionFactory();
-        this.pageOfDataGrid = pageOfDataGrid;
         createDCriteria();
         createDDescriptionCriteria();
+    }
+    
+    public void setPageOfDataGrid(PageOfDataGrid pageOfDataGrid) {
+        this.pageOfDataGrid = pageOfDataGrid;
         populatePageOfDataGrid();
     }
 
     private Session getSession() {
         return sessionFactory.getCurrentSession();
     }
-    
+
     private void createDCriteria() {
         dCriteria = DetachedCriteria.forClass(DescribedObjExt.class);
         dCriteriaCount = DetachedCriteria.forClass(DescribedObjExt.class);
         //добавить алисы для них                private void makeAliases()
     }
-    
+
     public void populatePageOfDataGrid() {
         runDCriteriaCount();
         runDCriteria();
     }
-    
+
     private void runDCriteriaCount() {
         Criteria criteria = dCriteriaCount.getExecutableCriteria(getSession());
         Long total = (Long) criteria.setProjection(Projections.rowCount()).uniqueResult();
@@ -88,13 +92,13 @@ public class DBConnector {
         runDDescriptionCriteriaCount();
         runDDescriptionCriteria();
     }
-    
+
     private void runDDescriptionCriteriaCount() {
         Criteria criteria = dDescriptionCriteriaCount.getExecutableCriteria(getSession());
         Long total = (Long) criteria.setProjection(Projections.rowCount()).uniqueResult();
         pageOfDataGridDescriptions.setTotalDescriptionCount(total);
     }
-    
+
     private void runDDescriptionCriteria() {
         Criteria criteria = dDescriptionCriteria.addOrder(Order.desc("this.dateOfDescription")).getExecutableCriteria(getSession());
         List<DescriptionExt> list = criteria.setFirstResult(pageOfDataGridDescriptions.getFrom()).setMaxResults(pageOfDataGridDescriptions.getTo()).list();
@@ -112,20 +116,20 @@ public class DBConnector {
         dCriteriaCount.add(Restrictions.ilike("this.name", name, MatchMode.ANYWHERE));
         populatePageOfDataGrid();
     }
-    
+
     public void addDescrObj(DescribedObjExt describedObjExt) {
         describedObjExt.setAmountOfGrade(0);
         getSession().save(describedObjExt);
     }
-    
+
     public void deleteDescrObj(DescribedObjExt describedObjExt) {
         getSession().delete(describedObjExt);
     }
-    
+
     public void editDescrObj(DescribedObjExt describedObjExt) {
         getSession().update(describedObjExt);
     }
-    
+
     public void vote() {
         Criteria c = getSession().createCriteria(GradeExt.class);
         c.add(Restrictions.eq("this.idUser", 3L)).add(Restrictions.eq("this.idDescObj", pageOfDataGrid.getSelectedDescribedObj().getId()));
@@ -139,22 +143,20 @@ public class DBConnector {
         grade.setIdUser(1);
         grade.setValue(pageOfDataGrid.getSelectedDescribedObj().getGrade());
         getSession().save(grade);
-        
+
         updateDescObjGrade();
     }
-    
+
     private void updateDescObjGrade() {
-       
+
         Criteria criteria = getSession().createCriteria(GradeExt.class);
-        //criteria.setProjection(Projections.count("this.value")).add(Restrictions.eq("this.idDescObj", describedObjExt.getId()));
-        //int count = (Integer) criteria.uniqueResult();
         criteria.setProjection(Projections.avg("this.value")).add(Restrictions.eq("this.idDescObj", pageOfDataGrid.getSelectedDescribedObj().getId()));
         int grade = Double.valueOf(criteria.uniqueResult().toString()).intValue();
         pageOfDataGrid.getSelectedDescribedObj().setGrade(grade);
-        pageOfDataGrid.getSelectedDescribedObj().setAmountOfGrade(pageOfDataGrid.getSelectedDescribedObj().getAmountOfGrade()+1);
+        pageOfDataGrid.getSelectedDescribedObj().setAmountOfGrade(pageOfDataGrid.getSelectedDescribedObj().getAmountOfGrade() + 1);
         getSession().update(pageOfDataGrid.getSelectedDescribedObj());
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("You have rated"));
-        
+
         /* Query query = getSession().createQuery("select new map(round(avg(value)) as rating, count(value) as gradeCount)  from GradeExt g where g.idDescObj.id=:id");
         query.setParameter("id", describedObjExt.getId());
 
@@ -173,29 +175,44 @@ public class DBConnector {
 
         int result = query.executeUpdate();*/
     }
-    
 
     public void setPageOfDataGridDescriptions(PageOfDataGridDescriptions pageOfDataGridDescriptions) {
         this.pageOfDataGridDescriptions = pageOfDataGridDescriptions;
     }
-    
+
     public void searchDescriptionById(long id) {
         createDDescriptionCriteria();
         dDescriptionCriteria.add(Restrictions.eq("this.idObject", id));
         dDescriptionCriteriaCount.add(Restrictions.eq("this.idObject", id));
         populatePageOfDataGridDescription();
     }
-    
+
     public void addCommend(DescriptionExt commend) {
+        commend.setUser(userExt);
         getSession().save(commend);
     }
-    
+
     public void deleteCommend(DescriptionExt commend) {
         getSession().delete(commend);
     }
     
     
     
+    public UserExt login(String username, String password) {
+        getSession().beginTransaction();
+        Criteria c = getSession().createCriteria(UserExt.class);
+        c.add(Restrictions.eq("username", username));
+        c.add(Restrictions.like("password", password));
+        List<UserExt> list = c.list();
+        getSession().getTransaction().commit();
+
+        if (!list.isEmpty()) {
+            userExt = list.get(0);
+            return userExt;
+        }
+        return null;
+    }
+
     
 
 }

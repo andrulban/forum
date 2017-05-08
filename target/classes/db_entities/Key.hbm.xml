@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 08.05.2017 12:31:59 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="db_entities.Key" table="key" catalog="Forum" optimistic-lock="version">
+        <id name="idkeys" type="long">
+            <column name="idkeys" />
+            <generator class="assigned" />
+        </id>
+    </class>
+</hibernate-mapping>

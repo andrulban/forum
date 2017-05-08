@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 05.05.2017 16:33:58 by Hibernate Tools 4.3.1 -->
+<!-- Generated 08.05.2017 12:31:59 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="db_entitiesExt.DescribedObjExt" table="describedObj" catalog="Forum" optimistic-lock="version">
         <id name="id" type="java.lang.Long">
@@ -20,8 +20,8 @@
         <property name="grade" type="java.lang.Integer">
             <column name="grade" />
         </property>
-        <property name="amountOfGrade" type="java.lang.Integer">
-            <column name="amountOfGrade" not-null="true"/>
+        <property name="amountOfGrade" type="int">
+            <column name="amountOfGrade" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

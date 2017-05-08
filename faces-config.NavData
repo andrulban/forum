@@ -3,13 +3,14 @@
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
         <Node id="parts/search.xhtml" x="796" y="138" zoom="true"/>
+        <Node id="pages/opinion.xhtml" x="409" y="8" zoom="true"/>
         <Node id="templates/aForumTemplate.xhtml" x="713" y="291" zoom="true"/>
         <Node id="index.xhtml" x="101" y="281" zoom="true"/>
-        <Node id="pages/opinion.xhtml" x="409" y="8" zoom="true"/>
+        <Node id="parts/describedObjEditingDialog.xhtml" x="400" y="150" zoom="true"/>
         <Node id="parts/footer.xhtml" x="769" y="207" zoom="true"/>
         <Node id="parts/header.xhtml" x="733" y="78" zoom="true"/>
-        <Node id="parts/describedObjAddingDialog.xhtml" x="150" y="150" zoom="true"/>
-        <Node id="pages/forum.xhtml" x="92" y="163" zoom="true"/>
+        <Node id="parts/describedObjAddingDialog.xhtml" x="713" y="350" zoom="true"/>
+        <Node id="pages/forum.xhtml" x="368" y="389" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>

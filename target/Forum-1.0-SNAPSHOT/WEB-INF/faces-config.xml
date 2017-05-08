@@ -23,6 +23,10 @@
             <to-view-id>/pages/opinion.xhtml</to-view-id>
             <redirect />
         </navigation-case>
+        <navigation-case>
+            <from-outcome>forum</from-outcome>
+            <to-view-id>/pages/forum.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/pages/opinion.xhtml</from-view-id>

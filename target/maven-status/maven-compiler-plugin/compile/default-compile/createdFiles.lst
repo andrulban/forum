@@ -1,6 +1,9 @@
+db_entitiesExt/UserExt.class
 beans/DataGridDescribedObj.class
 beans/DataGridDescription.class
 db_entities/HibernateUtil.class
+db_entities/User.class
+controllers/UserController.class
 servlets/ImageReader.class
 db_entitiesExt/DescriptionExt.class
 db_entities/Description.class
@@ -9,7 +12,7 @@ controllers/DescribedObjectListController.class
 dataModels/DescriptionListDataModel.class
 filters/HibernateSession$ResponseWrapper.class
 beans/PageOfDataGridDescriptions.class
-beans/User.class
+db_entities/Key.class
 db_entities/Grade.class
 db_entitiesExt/GradeExt.class
 controllers/DescriptionController.class

@@ -4,7 +4,9 @@
  */
 package filters;
 
+import controllers.UserController;
 import db_entities.HibernateUtil;
+import db_entitiesExt.UserExt;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -14,6 +16,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import javax.faces.context.FacesContext;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -25,10 +28,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
+import javax.servlet.http.HttpSession;
 import org.hibernate.SessionFactory;
 
 @WebFilter(filterName = "HibernateSession",
-urlPatterns = {"/pages/*"})
+        urlPatterns = {"/pages/*"})
 public class HibernateSession implements Filter {
 
     private SessionFactory sessionFactory;
@@ -52,16 +56,15 @@ public class HibernateSession implements Filter {
         // For example, a filter that implements setParameter() on a request
         // wrapper could set parameters on the request before passing it on
         // to the filter chain.
-	/*
+        /*
          String [] valsOne = {"val1a", "val1b"};
          String [] valsTwo = {"val2a", "val2b", "val2c"};
          request.setParameter("name1", valsOne);
          request.setParameter("nameTwo", valsTwo);
          */
-
         // For example, a logging filter might log items on the request object,
         // such as the parameters.
-	/*
+        /*
          for (Enumeration en = request.getParameterNames(); en.hasMoreElements(); ) {
          String name = (String)en.nextElement();
          String values[] = request.getParameterValues(name);
@@ -87,10 +90,9 @@ public class HibernateSession implements Filter {
 
         // Write code here to process the request and/or response after
         // the rest of the filter chain is invoked.
-
         // For example, a logging filter might log the attributes on the
         // request object after the request has been processed. 
-	/*
+        /*
          for (Enumeration en = request.getAttributeNames(); en.hasMoreElements(); ) {
          String name = (String)en.nextElement();
          Object value = request.getAttribute(name);
@@ -98,9 +100,8 @@ public class HibernateSession implements Filter {
 
          }
          */
-
         // For example, a filter might append something to the response.
-	/*
+        /*
          PrintWriter respOut = new PrintWriter(response.getWriter());
          respOut.println("<p><strong>This has been appended by an intrusive filter.</strong></p>");
 	
@@ -137,18 +138,22 @@ public class HibernateSession implements Filter {
             FilterChain chain)
             throws IOException, ServletException {
 
-
         HibernateSession.RequestWrapper wrappedRequest = new HibernateSession.RequestWrapper((HttpServletRequest) request);
         HibernateSession.ResponseWrapper wrappedResponse = new HibernateSession.ResponseWrapper((HttpServletResponse) response);
 
-
-
 //        String path = wrappedRequest.getRequestURI().substring(wrappedRequest.getContextPath().length());
-
 //        if (!path.startsWith(ResourceHandler.RESOURCE_IDENTIFIER)) {
+//        }
+        HttpServletRequest request1 = (HttpServletRequest) request;
+        HttpSession session = request1.getSession(true);
+        if (session.getAttribute("login")==null) {
+            HttpServletResponse httpResponse = (HttpServletResponse) response;
+            httpResponse.sendRedirect("/Forum/index.xhtml");
+            return;
+
+        }
         System.out.println("open session for " + wrappedRequest.getRequestURI());
         sessionFactory.getCurrentSession().beginTransaction();
-//        }
 
         try {
 
@@ -156,10 +161,7 @@ public class HibernateSession implements Filter {
                 log("CheckSessionFilter:doFilter()");
             }
 
-
-
             doBeforeProcessing(wrappedRequest, wrappedResponse);
-
 
             chain.doFilter(wrappedRequest, wrappedResponse);
 
@@ -170,9 +172,6 @@ public class HibernateSession implements Filter {
             sessionFactory.getCurrentSession().getTransaction().commit();
             sessionFactory.getCurrentSession().close();
             System.out.println("close session for " + wrappedRequest.getRequestURI());
-
-
-
 
             // If there was a problem, we want to rethrow it if it is
             // a known type, otherwise log it.
@@ -398,7 +397,7 @@ public class HibernateSession implements Filter {
         // as it went throught the filter chain. Since HttpServletRequest doesn't
         // have a get cookies method, we will need to store them locally as they
         // are being set.
-	/*
+        /*
          protected Vector cookies = null;
 	
          // Create a new method that doesn't exist in HttpServletResponse

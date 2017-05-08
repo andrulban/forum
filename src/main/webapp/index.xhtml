@@ -28,17 +28,17 @@
                 <div class="input">       
                     <h:form id="login_form" styleClass="login_form">
                         <h:outputText value="Type your name here"/>
-                        <p:inputText id="username" styleClass="stringUserName" required="true" requiredMessage="Name is obligatory to be written" value="#{user.username}"/>
+                        <p:inputText id="username"  value="#{userController.username}" styleClass="stringUserName" required="true" requiredMessage="Name should be written"/>
                         <p:message id="logMes" for="username" display="text" showDetail="true"/>
-                        <!-->
+                        
                         <p>
                             <h:outputText value="Write password here"/>
-                            <p:password id="userpassword" styleClass="stringPassword" value="#//{user.password}" required="true" redisplay="true" requiredMessage="#//{messages.password_required}"/>
+                            <p:password id="userpassword" value="#{userController.password}" styleClass="stringPassword"  required="true" redisplay="true" requiredMessage="Password should be written"/>
                             <p:message id="pasMes" for="userpassword" display="text" showDetail="true"/>
                         </p>
-                        <-->
+                       
                         <div>
-                            <p:commandButton id="button" styleClass="button" action="#{user.goToBooks()}" update="login_form" value="Log in" onclick="return checkValue(this.form, 'Name is obligatory to be written');" global="true" />
+                            <p:commandButton id="button" styleClass="button" action="#{userController.goToBooks()}" update="login_form" value="Log in" onclick="return checkValue(this.form, 'Name is obligatory to be written');" global="true" />
                             
                         </div>
                         <p:message for="login_form" display="text" showDetail="true"/>

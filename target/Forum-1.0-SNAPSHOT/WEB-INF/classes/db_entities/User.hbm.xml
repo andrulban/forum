@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 08.05.2017 12:31:59 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="db_entitiesExt.UserExt" table="user" catalog="Forum" optimistic-lock="version">
+        <id name="id" type="java.lang.Long">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="password" type="string">
+            <column name="password" length="25" not-null="true" />
+        </property>
+        <property name="role" type="int">
+            <column name="role" not-null="true" />
+        </property>
+        <property name="username" type="string">
+            <column name="username" length="25" not-null="true" unique="true" />
+        </property>
+        <set name="descriptions" table="description" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idUser" not-null="true" />
+            </key>
+            <one-to-many class="db_entitiesExt.DescriptionExt" />
+        </set>
+    </class>
+</hibernate-mapping>
