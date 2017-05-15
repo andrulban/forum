@@ -16,6 +16,14 @@ and open the template in the editor.
     <h:body>
         <ui:composition>
 
+            <h:form id="keyGenerationForm">
+                <p:commandButton action="#{userController.generateKye()}" value="Generate Key" rendered="#{userController.user.role==10}" styleClass="generateKeyButton"/>
+            </h:form>
+            
+            <h:form>
+                <p:commandButton action="#{userController.logOut()}" value="Log out" ajax="false" styleClass="generateKeyButton" style="float: right;"/>
+            </h:form>
+            
             <h:form id="logoForm">
                 <div class="logo">
                     <p:commandLink action="forum" update=":mainPanelGroup" process="@form">
@@ -23,9 +31,7 @@ and open the template in the editor.
                     </p:commandLink>
                 </div>
             </h:form>
-
-
-
+            
 
         </ui:composition>
     </h:body>

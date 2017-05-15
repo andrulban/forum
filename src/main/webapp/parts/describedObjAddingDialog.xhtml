@@ -32,7 +32,8 @@ and open the template in the editor.
 
 
                     <div class="submitButtonWrap">
-                        <p:commandButton process="@form" action="#{imageController.upload()}" value="Add" global="false" ajax="false" styleClass="addingObjSubmitButton">
+                        <p:commandButton process="@form" value="Add" global="false" ajax="false" styleClass="addingObjSubmitButton">
+                            <f:actionListener binding="#{imageController.upload()}"/>
                             <f:actionListener binding="#{describedObjectListController.addObj()}"/>
                         </p:commandButton>
                     </div>

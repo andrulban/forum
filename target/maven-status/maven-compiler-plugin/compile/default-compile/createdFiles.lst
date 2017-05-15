@@ -16,6 +16,7 @@ db_entities/Grade.class
 db_entitiesExt/GradeExt.class
 controllers/DescriptionController.class
 db/DBConnector.class
+db_entities/Invitations.class
 db_entities/DescribedObj.class
 beans/PageOfDataGrid.class
 controllers/ImageController.class

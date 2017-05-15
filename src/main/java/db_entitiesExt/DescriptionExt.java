@@ -3,6 +3,7 @@ package db_entitiesExt;
 
 
 import db_entities.Description;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -31,6 +32,11 @@ public class DescriptionExt  extends Description{
         }
         return true;
     }
+    
+   public String getDateStr() {
+       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+       return sdf.format(getDateOfDescription());
+   }
 
 
 }

@@ -75,7 +75,7 @@ and open the template in the editor.
                             </div>
                             <p:commandLink value="X" rendered="#{userController.user.role==10}" action="#{descriptionController.deleteCommend(descr)}" update="@form" style="float: left; font-weight: bold; margin-right: 10px;"/>
                             <div class="date">
-                                <p>#{descr.dateOfDescription}</p>                            
+                                <p>#{descr.getDateStr()}</p>                            
                             </div>
 
                             <div class="opinion">

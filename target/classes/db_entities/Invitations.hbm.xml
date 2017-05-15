@@ -9,7 +9,7 @@
             <generator class="identity" />
         </id>
         <property name="keyStr" type="string">
-            <column name="keyStr" length="25" unique="true" />
+            <column name="keyStr" length="36" unique="true" />
         </property>
         <property name="lvlPermission" type="int">
             <column name="lvlPermission"/>

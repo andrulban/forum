@@ -16,6 +16,7 @@ import db_entitiesExt.GradeExt;
 import db_entitiesExt.UserExt;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.hibernate.Criteria;
@@ -125,6 +126,22 @@ public class DBConnector {
     }
 
     public void deleteDescrObj(DescribedObjExt describedObjExt) {
+        if (describedObjExt.getAmountOfGrade() > 0) {
+            Criteria c = getSession().createCriteria(GradeExt.class);
+            c.add(Restrictions.eq("this.idUser", userExt.getId())).add(Restrictions.eq("this.idDescObj", describedObjExt.getId()));
+            List<GradeExt> list = c.list();
+            for (GradeExt grade : list) {
+                getSession().delete(grade);
+            }
+        }
+        if (pageOfDataGridDescriptions.getTotalDescriptionCount()>0) {
+            Criteria b = getSession().createCriteria(DescriptionExt.class);
+            b.add(Restrictions.eq("this.idObject", describedObjExt.getId()));
+            List<DescriptionExt> list = b.list();
+            for (DescriptionExt description : list) {
+                getSession().delete(description);
+            }
+        }
         getSession().delete(describedObjExt);
     }
 
@@ -133,9 +150,9 @@ public class DBConnector {
     }
 
     public void vote() {
-        
+
         Criteria c = getSession().createCriteria(GradeExt.class);
-        c.add(Restrictions.eq("this.idUser",userExt.getId())).add(Restrictions.eq("this.idDescObj", pageOfDataGrid.getSelectedDescribedObj().getId()));
+        c.add(Restrictions.eq("this.idUser", userExt.getId())).add(Restrictions.eq("this.idDescObj", pageOfDataGrid.getSelectedDescribedObj().getId()));
         List tr = c.list();
         if (!tr.isEmpty()) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("You can't rate it, you have already done it before. One person - one grade."));
@@ -229,8 +246,8 @@ public class DBConnector {
             u.setRole(keys.get(0).getLvlPermission());
             try {
                 getSession().save(u);
-                getSession().getTransaction().commit();
-                getSession().beginTransaction();
+                //getSession().getTransaction().commit();
+                //getSession().beginTransaction();
                 getSession().delete(keys.get(0));
                 getSession().getTransaction().commit();
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Congratulations! Now you can log in!"));
@@ -243,17 +260,15 @@ public class DBConnector {
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Key is not valid!"));
         }
-
-        /*
-        getSession().beginTransaction();
+    }
+    
+    public String generateKye() {
+        UUID key = UUID.randomUUID();
         Invitations invite = new Invitations();
-        invite.setKeyStr(key);
-        try {
-            getSession().save(invite);
-            getSession().getTransaction().commit();
-        } catch (ConstraintViolationException ex) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("..."));
-        }*/
+        invite.setKeyStr(key.toString());
+        invite.setLvlPermission(9);
+        getSession().save(invite);
+        return key.toString();
     }
 
 }

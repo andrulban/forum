@@ -36,6 +36,7 @@ public class UserController implements Serializable {
     private DBConnector dBConnector;
     private Invitations invite;
     private UserExt user;
+    private String key;
 
     public UserController() {
         dBConnector = new DBConnector();
@@ -60,6 +61,17 @@ public class UserController implements Serializable {
         dBConnector.signUp(username, password, invite.getKeyStr());
         RequestContext.getCurrentInstance().execute("PF('registrationDialog').hide();");
         invite=new Invitations();
+    }
+    
+    public void generateKye() {
+        key = dBConnector.generateKye();
+        RequestContext.getCurrentInstance().execute("PF('keyGeneration').show();");
+    }
+    
+    public String logOut() {
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        session.invalidate();
+        return "index";
     }
 
 
@@ -103,6 +115,15 @@ public class UserController implements Serializable {
     public void setInvite(Invitations invite) {
         this.invite = invite;
     }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+    
 
     
 
