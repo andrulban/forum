@@ -5,21 +5,15 @@
  */
 package controllers;
 
-import beans.DataGridDescribedObj;
 import beans.DataGridDescription;
 import beans.PageOfDataGridDescriptions;
 import dataModels.DescriptionListDataModel;
 import db.DBConnector;
 import db_entitiesExt.DescriptionExt;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.enterprise.context.spi.Context;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.naming.InitialContext;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -50,16 +44,7 @@ public class DescriptionController implements Serializable{
     
     
     public void addCommend() {
-        if(currentText==null&currentText.equals("")) {
-            return;
-        }
-        DescriptionExt descriptionExt = new DescriptionExt();
-        descriptionExt.setDescription(currentText);
-        descriptionExt.setDateOfDescription(new Date());
-        descriptionExt.setIdObject(describedObjectListController.getPageOfDataGrid().getSelectedDescribedObj().getId());
-        
-        dBConnector.addCommend(descriptionExt);
-        
+        dBConnector.addCommend(currentText);
         currentText=null;
     }
     

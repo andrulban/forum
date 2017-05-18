@@ -29,12 +29,12 @@
             <div class="input">       
                 <h:form id="login_form" styleClass="login_form">
                     <h:outputText value="Type your name here"/>
-                    <p:inputText id="username"  value="#{userController.username}" styleClass="stringUserName" required="true" requiredMessage="Name should be written"/>
+                    <p:inputText id="username"  value="#{userController.username}" styleClass="stringUserName" required="true" requiredMessage="Name should be written" maxlength="25"/>
                     <p:message id="logMes" for="username" display="text" showDetail="true"/>
 
                     <p>
                         <h:outputText value="Write password here"/>
-                        <p:password id="userpassword" value="#{userController.password}" styleClass="stringPassword"  required="true" redisplay="true" requiredMessage="Password should be written"/>
+                        <p:password id="userpassword" value="#{userController.password}" styleClass="stringPassword"  required="true" redisplay="true" requiredMessage="Password should be written" maxlength="25"/>
                         <p:message id="pasMes" for="userpassword" display="text" showDetail="true"/>
                     </p>
 

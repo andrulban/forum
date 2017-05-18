@@ -14,6 +14,7 @@
         <Node id="parts/registrationDialog.xhtml" x="150" y="150" zoom="true"/>
         <Node id="errorpages/expired.xhtml" x="55" y="470" zoom="true"/>
         <Node id="errorpages/error_500.xhtml" x="50" y="387" zoom="true"/>
+        <Node id="parts/keyGenerationDialog.xhtml" x="150" y="300" zoom="true"/>
         <Node id="parts/describedObjEditingDialog.xhtml" x="400" y="150" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>

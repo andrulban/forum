@@ -54,10 +54,12 @@ and open the template in the editor.
 
                 <div class="commendAdding">
                     <h:form id="commendAddingForm">
+                        <p:message id="regLogMes" for="inputDescrTextarea" display="text" showDetail="true"/>
                         <p:inputTextarea id="inputDescrTextarea" value="#{descriptionController.currentText}" cols="85" rows="8" 
-                                         class="commendAddingText" maxlength="1500" counterTemplate="Letters left {0}"/>
+                                         class="commendAddingText" maxlength="1500" counterTemplate="Letters left {0}" required="true" requiredMessage="Message can't be empty"/>
+                        
                         <div class="submitButtonCommendWrap">
-                            <p:commandButton action="#{descriptionController.addCommend()}" value="Submit" class="submitButton" update=":descriptionsDataGridForm inputDescrTextarea :globalMessage"/>
+                            <p:commandButton action="#{descriptionController.addCommend()}" value="Submit" class="submitButton" update=":descriptionsDataGridForm inputDescrTextarea regLogMes :globalMessage"/>
                         </div>  
                     </h:form>
                 </div>

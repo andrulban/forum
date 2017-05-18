@@ -4,9 +4,7 @@
  */
 package filters;
 
-import controllers.UserController;
 import db_entities.HibernateUtil;
-import db_entitiesExt.UserExt;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -16,7 +14,6 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-import javax.faces.context.FacesContext;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;

@@ -25,7 +25,7 @@ and open the template in the editor.
                     </p>
 
                     <h:outputText value="Name: " class="addDialogText" style="margin-right: 32px;"/>
-                    <p:inputText value="#{describedObjectListController.pageOfDataGrid.selectedDescribedObj.name}" class="addDialogElem"/>
+                    <p:inputText value="#{describedObjectListController.pageOfDataGrid.selectedDescribedObj.name}" class="addDialogElem" maxlength="25"/>
 
                     <h:outputText value="Contacts: " class="addDialogText"/>
                     <p:inputTextarea id="inputDescr" value="#{describedObjectListController.pageOfDataGrid.selectedDescribedObj.contacts}" cols="45" rows="5" maxlength="200" class="addDialogElem"/>

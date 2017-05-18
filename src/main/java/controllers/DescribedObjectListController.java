@@ -9,17 +9,14 @@ import beans.DataGridDescribedObj;
 import beans.PageOfDataGrid;
 import dataModels.DescribedObjListDataModel;
 import db.DBConnector;
-import db_entities.DescribedObj;
 import db_entitiesExt.DescribedObjExt;
 import java.io.Serializable;
-import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
-import org.primefaces.event.RateEvent;
 
 /**
  *

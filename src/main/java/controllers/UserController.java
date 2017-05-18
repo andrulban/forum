@@ -6,20 +6,13 @@
 package controllers;
 
 import db.DBConnector;
-import db_entities.HibernateUtil;
 import db_entities.Invitations;
 import db_entitiesExt.UserExt;
 import java.io.Serializable;
-import java.util.List;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -58,24 +51,25 @@ public class UserController implements Serializable {
     }
 
     public void signUp() {
+        
+        
         dBConnector.signUp(username, password, invite.getKeyStr());
         RequestContext.getCurrentInstance().execute("PF('registrationDialog').hide();");
-        invite=new Invitations();
+        invite = new Invitations();
+
     }
-    
+
     public void generateKye() {
         key = dBConnector.generateKye();
         RequestContext.getCurrentInstance().execute("PF('keyGeneration').show();");
     }
-    
+
     public String logOut() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         session.invalidate();
         return "index";
     }
 
-
-    
     public String getUsername() {
         return username;
     }
@@ -123,8 +117,5 @@ public class UserController implements Serializable {
     public void setKey(String key) {
         this.key = key;
     }
-    
-
-    
 
 }

@@ -21,15 +21,17 @@ and open the template in the editor.
             <p:dialog modal="true" widgetVar="registrationDialog" dynamic="true" 
                       resizable="true" header="Registration" closable="false" closeOnEscape="false">
                     <h:outputText value="Username: " styleClass="addDialogText" style="margin-right: 32px;"/>
-                    <p:inputText value="#{userController.username}" styleClass="addDialogElem" style="margin-top: 10px;"/>
-
+                    <p:inputText id="regUserName" value="#{userController.username}" styleClass="addDialogElem" style="margin-top: 10px;" required="true" requiredMessage="Type your username here" maxlength="25"/>
+                    <div class="clearing"><p:message id="regLogMes" for="regUserName" display="text" showDetail="true"/></div>
+                    
                     <h:outputText value="Password: " styleClass="addDialogText" style="margin-right: 32px;"/>
-                    <p:inputText value="#{userController.password}" styleClass="addDialogElem" style="margin-top: 10px;"/>
+                    <p:password id="regPassword" value="#{userController.password}" styleClass="addDialogElem" style="margin-top: 10px;" required="true" requiredMessage="Type your password here" maxlength="25"/>
+                    <div class="clearing"><p:message id="regPasMes" for="regPassword" display="text" showDetail="true"/></div>
 
                     <h:outputText value="Invitational key: " styleClass="addDialogText"/>
                     <p:inputText value="#{userController.invite.keyStr}" styleClass="addDialogElem" style="margin-top: 10px;"/>
                     <div class="signUpButtonWrap">
-                        <p:commandButton process="@form" update="@form :globalIndexMessage :login_form" action="#{userController.signUp()}" value="Save" styleClass="signUpButton"/>
+                        <p:commandButton process="@form" update="@this regPasMes regLogMes :globalIndexMessage" action="#{userController.signUp()}" value="Save" styleClass="signUpButton"/>
                     </div>
                     <div class="cancleButtonWrap">
                         <p:commandButton process="@form" type="button" onclick="PF('registrationDialog').hide()" value="Cancel"

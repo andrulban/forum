@@ -7,20 +7,19 @@ package db;
 
 import beans.PageOfDataGrid;
 import beans.PageOfDataGridDescriptions;
-import db_entities.DescribedObj;
 import db_entities.HibernateUtil;
 import db_entities.Invitations;
 import db_entitiesExt.DescribedObjExt;
 import db_entitiesExt.DescriptionExt;
 import db_entitiesExt.GradeExt;
 import db_entitiesExt.UserExt;
-import java.util.HashMap;
+import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -29,13 +28,12 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.ConstraintViolationException;
-import org.hibernate.transform.Transformers;
 
 /**
  *
  * @author andrusha
  */
-public class DBConnector {
+public class DBConnector implements Serializable{
 
     private static SessionFactory sessionFactory;
     //private List<DescribedObjExt> listOfDescribedObj;
@@ -207,9 +205,13 @@ public class DBConnector {
         populatePageOfDataGridDescription();
     }
 
-    public void addCommend(DescriptionExt commend) {
-        commend.setUser(userExt);
-        getSession().save(commend);
+    public void addCommend(String currentText) {
+        DescriptionExt descriptionExt = new DescriptionExt();
+        descriptionExt.setDescription(currentText);
+        descriptionExt.setDateOfDescription(new Date());
+        descriptionExt.setIdObject(pageOfDataGrid.getSelectedDescribedObj().getId());
+        descriptionExt.setUser(userExt);
+        getSession().save(descriptionExt);
     }
 
     public void deleteCommend(DescriptionExt commend) {

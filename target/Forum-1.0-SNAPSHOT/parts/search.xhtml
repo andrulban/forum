@@ -19,7 +19,7 @@ and open the template in the editor.
             
             <div class="search">
                 <h:form id="searchForm" styleClass="searchForm">
-                    <h:inputText id="searchText" value="#{describedObjectListController.searchString}" styleClass="searchText"/>
+                    <h:inputText id="searchText" value="#{describedObjectListController.searchString}" styleClass="searchText" maxlength="25"/>
                     <p:commandButton id="searchButton" value="Search" action="#{describedObjectListController.search}" styleClass="searchButton" update=":mainPanelGroup"/>
                     <div class="clear"></div>
                     <p:commandButton id="addButton" value="Add new Obj" type="button" onclick="PF('describedObjAddingDialog').show()" styleClass="addButton" update="@form"/>
